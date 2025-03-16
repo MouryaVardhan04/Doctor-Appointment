@@ -1,0 +1,88 @@
+.home-page {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.left-side {
+    display: flex;
+    flex-direction: column; 
+    height: 100vh;
+    width: 18vw;
+    background-color: rgb(242, 242, 240);
+    padding: 5% 10px;
+    border-right: 2px solid black;
+    position: fixed;
+}
+
+.left-side button {
+    text-decoration: none;
+    color: black;
+    height: 40px;
+    width: 90%;
+    border: 2px solid black;
+    margin: 5px;
+    font-size: 1vw;
+    font-weight: bold;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: white;
+    transition: background-color 0.3s ease, transform 0.2s;
+    cursor: pointer;
+}
+
+/* Hover Effect */
+.left-side button:hover {
+    background-color: #ddd;
+    transform: scale(1.05);
+}
+
+.form-group option{
+    background-color: white;
+}
+.left-side i {
+    padding-right: 10px;
+}
+
+/* Right Side Fix */
+.right-side {
+    flex-grow: 1;
+    margin-left: 22vw;  /* Ensures content does not overlap */
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto; /* Enables scrolling if needed */
+}
+
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+    .home-container {
+        flex-direction: column;
+    }
+
+    .left-side {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px;
+        overflow-x: scroll;
+    }
+
+    .left-side button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .right-side {
+        margin-top: 60px; /* Adjust content to not overlap with fixed top bar */
+        margin-left: 0;
+    }
+}

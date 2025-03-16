@@ -1,0 +1,195 @@
+.list-doctors {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Filter Section */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgb(161, 159, 159);
+}
+.radio-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Label Styling */
+.filter-container label {
+    padding: 8px 15px;
+    font-size: 18px;
+    font-weight: 600;
+    border: 2px solid black;
+    background-color: #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    margin-inline:10px;
+}
+
+/* Hide Default Radio Button */
+.filter-container input[type="radio"] {
+    display: none;
+}
+
+.filter-btn {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    background-color: #d0c1c1;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.filter-btn.selected {
+    background-color: white;
+    border: 2px solid black;
+    font-weight: bold;
+}
+
+.filter-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.filter-container input[type="radio"]:checked + label {
+    background-color: white;
+    border-color: #007bff;
+    color: #000;
+}
+
+/* Disable Responsive Effect on Radio Buttons */
+@media (max-width: 1023px) {
+    .filter-container label {
+        font-size: 18px;
+        padding: 8px 15px;
+    }
+}
+
+/* Filter Dropdown */
+.filter-container select {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+/* Grid Layout */
+.doctor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Limit to 3 items per row */
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Doctor Card */
+.doctor-container {
+    background: #e8e7e7;
+    min-width: 250px;
+    max-width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    color: black;
+    text-decoration: none;
+}
+
+/* Image Container */
+.img-container {
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.8s ease-in-out;
+}
+
+/* Image */
+.img-container img {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    display: block;
+    position: relative;
+    z-index: 1;
+    padding-top: 10px;
+    transition: transform 0.8s ease-in-out;
+}
+
+/* Background Overlay (Behind Image) */
+.img-container::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: rgba(73, 73, 73, 0.8); /* Dark overlay */
+    transition: height 0.8s ease-in-out;
+    z-index: 0;
+}
+
+.availability-toggle {
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .available {
+    background-color: blue;
+    color: white;
+  }
+  
+  .not-available {
+    background-color: gray;
+    color: white;
+  }
+
+  
+/* Hover Effects */
+.img-container:hover::before {
+    height: 100%;
+}
+
+.img-container:hover img {
+    transform: translateY(0px);
+}
+
+/* Responsive Grid */
+@media (min-width: 1024px) {
+    .doctor-grid {
+        grid-template-columns: repeat(3, 1fr); /* Still 3 items per row */
+    }
+}
+
+@media (max-width: 1023px) and (min-width: 600px) {
+    .doctor-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row for mid screens */
+    }
+}
+
+@media (max-width: 599px) {
+    .doctor-grid {
+        grid-template-columns: repeat(1, 1fr); /* 1 item per row for small screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        align-items: center;
+        overflow-x: scroll;
+    }
+
+    .filter-btn {
+        width: 90%; /* Make buttons wider for better touch interaction */
+        text-align: center;
+    }
+}

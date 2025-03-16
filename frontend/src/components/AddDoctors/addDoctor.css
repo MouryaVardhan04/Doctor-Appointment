@@ -1,0 +1,157 @@
+/* Main Container */
+.add-doctor-container {
+    max-width: 90%;
+    margin: auto;
+    padding: 20px;
+    background: #f7f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    height: auto;
+    padding-right: 4%;
+}
+
+/* Header */
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+
+}
+
+/* Layout for Form */
+.doctor-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Left & Right Sections */
+.left-right {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Adjusting width of left and right columns */
+.form-left, .form-right {
+    width: 48%;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+.add-doctor-container label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 14px;
+    color: #333;
+}
+
+.add-doctor-container  input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #fff;
+    transition: border-color 0.3s ease-in-out;
+}
+
+/* Add Focus Effect */
+.add-doctor-container input:focus, select:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Textarea */
+.add-doctor-container textarea {
+    resize: vertical;
+    height: 15vh;
+}
+
+.form-group select option {
+    font-size: 40px;
+    color: #333;
+    background: white;
+}
+
+/* Image Upload & Preview */
+.image-preview-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+
+.image-upload input[type="file"] {
+    border: none;
+    background-color: transparent;
+}
+.form-group select {
+    width: 104%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #fff;
+    transition: border-color 0.3s ease-in-out;
+    appearance: none;
+}
+
+.preview-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Submit Button */
+.add-doctor-container button {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    margin-top: 15px;
+}
+
+.add-doctor-container button:hover {
+    background: #0056b3;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+    .add-doctor-container {
+        max-width: 90%;
+        gap: 15px;
+    padding-right: 10%;
+
+    }
+
+    .left-right {
+        flex-direction: column;
+    }
+
+    .form-left, .form-right {
+        width: 100%;
+    }
+
+    .add-doctor-container input, select, textarea {
+        font-size: 14px;
+    }
+
+    .preview-image {
+        width: 50px;
+        height: 50px;
+    }
+}

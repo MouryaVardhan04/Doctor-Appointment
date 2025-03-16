@@ -1,0 +1,125 @@
+.get-doctor-container {
+  display: flex;
+  flex-direction: row-reverse; /* Moves the image to the right */
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.get-doctor-left-right{
+  display: flex;
+  position: right;
+  justify-content: space-between;
+}
+.get-doctor-right{
+   margin-inline: 10vw;
+}
+.get-doctor-image {
+  flex: 1;
+  max-width: 350px;
+  height: auto;
+  text-align: center;
+}
+
+.get-doctor-image img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.get-doctor-info {
+  flex: 2;
+  background-color: #f6f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.get-doctor-info p {
+  font-size: 16px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  color: #555;
+  font-size: larger;
+
+}
+
+.get-doctor-info p strong {
+  color: #333;
+}
+
+.error {
+  color: red;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.loading {
+  font-size: 18px;
+  text-align: center;
+  color: #999;
+  margin-top: 20px;
+}
+.get-doctor-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.edit-button, .delete-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+  .get-doctor-container {
+    flex-direction: column; /* Stack items on top of each other */
+    align-items: center;
+    text-align: center;
+  }
+  .get-doctor-info p {
+    font-size: 16px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+    color: #555;
+    font-size: 15px;
+  
+  }
+  .get-doctor-info {
+    order: 2; /* Move doctor details to the top */
+  }
+
+  .get-doctor-image {
+    order: 1; /* Move doctor image below */
+    max-width: 280px; /* Reduce image size */
+  }
+}
+

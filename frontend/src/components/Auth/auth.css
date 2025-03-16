@@ -1,0 +1,77 @@
+/* Center the login form */
+.auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+}
+
+/* Style the form container */
+.auth form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: rgb(232, 230, 230);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    width: 350px;
+    text-align: center;
+}
+
+/* Style the form heading */
+.auth h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Style input fields */
+.auth input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #868686;
+    background-color: #f6f3f3;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Style the paragraph text */
+.auth p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Style the register link */
+.auth p a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth p a:hover {
+    text-decoration: underline;
+}
+
+/* Style the login button */
+.auth button {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.auth button:hover {
+    background-color: #435160;
+}
+
+/* Responsive adjustments */
+@media (max-width: 380px) {
+    form {
+        width: 90%;
+    }
+}
