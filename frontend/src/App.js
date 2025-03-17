@@ -13,6 +13,7 @@ import Footer from "./components/Footer/Footer";
 import HomeAllDoc from "./components/HomeAlldoctors/HomeAllDoc";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact"
+import Doctor from "./components/Doctor/Doctor";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/alldoctors" element={<HomeAllDoc/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/contact" element={<Contact/>} />
+          <Route path="/doctor/:id" element={<Doctor/>} />
         </Routes>
       </Router>
       <Footer/>

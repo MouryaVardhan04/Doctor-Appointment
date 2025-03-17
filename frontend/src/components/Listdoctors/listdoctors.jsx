@@ -33,7 +33,7 @@ function ListDoctors() {
     : doctors;
 
   return (
-    <div className="list-doctors">
+    <div className="admin-list-doctors">
       <h1>List of Doctors</h1>
 
       <div className="filter-container">
@@ -50,10 +50,10 @@ function ListDoctors() {
         </div>
       </div>
 
-      <div className="doctor-grid">
+      <div className="Box1">
         {filteredDoctors.map((doctor) => (
           <Link to={`/admin/getdoctor/${doctor._id}`} key={doctor._id} className="doctor-container">
-            <div className="img-container">
+            <div className="imgContainer">
               <img
                 src={`http://localhost:8000/uploads/${doctor.file}`} // Fix image path
                 alt={doctor.doct_name}

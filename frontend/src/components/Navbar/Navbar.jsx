@@ -18,7 +18,7 @@ function Navbar() {
       if (response.ok) {
         setUser(null); // Update context state
         localStorage.removeItem("token"); // Remove token
-        navigate("/login"); // Redirect
+        navigate("/"); // Redirect
       } else {
         console.error("Failed to log out:", response.statusText);
       }

@@ -60,7 +60,7 @@ function HomeAllDoc() {
   <div className="Box1">
   {filteredDoctors.length > 0 ? (
       filteredDoctors.map((doctor) => (
-        <Link to={`/admin/getdoctor/${doctor._id}`} key={doctor._id} className="doctor-container">
+        <Link to={`/doctor/${doctor._id}`} key={doctor._id} className="doctor-container">
           <div className="imgContainer">
             <img
               src={doctor.file ? `http://localhost:8000/uploads/${doctor.file}` : "/default-doctor.png"}
