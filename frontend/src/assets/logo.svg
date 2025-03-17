@@ -1,0 +1,12 @@
+<svg width="220" height="60" viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- Icon -->
+  <g transform="translate(0, 5)">
+    <rect x="10" y="5" width="30" height="40" rx="6" fill="#5B7CFA"/>
+    <path d="M15 15 H35" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    <path d="M15 25 H35" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    <path d="M15 35 H30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="50" y="40" font-family="Poppins, sans-serif" font-size="30" fill="#0A1172" font-weight="600">DocuBook</text>
+</svg>

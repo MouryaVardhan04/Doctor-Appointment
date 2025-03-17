@@ -9,6 +9,7 @@ import Profile from "./components/Profile/profile";
 import GetProfile from "./components/Profile/getprofile";
 import EditProfile from "./components/Profile/editProfile";
 import { UserProvider } from "./UserContext";
+import Footer from "./components/Footer/Footer";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/editprofile" element={<EditProfile />} />
         </Routes>
       </Router>
+      <Footer/>
     </UserProvider>
   );
 }

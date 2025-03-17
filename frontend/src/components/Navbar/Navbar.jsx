@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext"; // Import UserContext
 import "./Navbar.css";
+import logo from "../../assets/logo.svg"; // Import your logo image
 
 function Navbar() {
   const { user, setUser } = useContext(UserContext); // Use global user state
@@ -27,39 +28,46 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-brand">
-        <Link to="/">MyApp</Link>
-      </div>
+    <header className="header-width">
+      <nav className="grid">
+        <img src={logo} alt="Logo" className="logo" />
+        <div className="navbar">
+          <ul>
+            <li>
+              <NavLink to="/">HOME</NavLink>
+            </li>
+            <li>
+              <NavLink to="/doctors">ALL DOCTORS</NavLink>
+            </li>
+            <li>
+              <NavLink to="/about">ABOUT</NavLink>
+            </li>
+            <li>
+              <NavLink to="/contact">CONTACT</NavLink>
+            </li>
+          </ul>
+        </div>
 
-      <ul className="navbar-links">
+        {/* Conditional rendering */}
         {!user ? (
-          <>
-            <li>
-              <Link to="/register">Register</Link>
-
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </>
+          <button className="create-acc">
+            <Link to="/register">Create Account</Link>
+          </button>
         ) : (
-          <>
-            <li>
+          <ul className="auth-links">
+            <li className="userprofile">
               <Link to="/profile">{user.username}</Link>
-            </li>
-            <li>
-              <Link to="/admin">Admin Home</Link>
             </li>
             <li>
               <button onClick={handleLogout} className="logout-button">
                 Logout
               </button>
             </li>
-          </>
+          </ul>
         )}
-      </ul>
-    </nav>
+      </nav>
+      <hr />
+    </header>
   );
 }
 

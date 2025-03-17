@@ -136,15 +136,12 @@ function AddDoctor() {
                 <label>Specialist In</label>
                 <select onChange={(ev) => setdoct_specialization(ev.target.value)} required>
                   <option value="">Select Specialization</option>
-                  <option value="cardiology">Cardiology</option>
-                  <option value="neurology">Neurology</option>
-                  <option value="orthopedics">Orthopedics</option>
-                  <option value="dermatology">Dermatology</option>
-                  <option value="pediatrics">Pediatrics</option>
-                  <option value="gynecology">Gynecology</option>
-
-
-                  Gynecology
+                  <option value="General Physician">General Physician</option>
+                  <option value="Gynecologist">Gynecologist</option>
+                  <option value="Dermatologist">Dermatologist</option>
+                  <option value="Pediatricians">Pediatricians</option>
+                  <option value="Neurologist">Neurologist</option>
+                  <option value="Gastroenterologist">Gastroenterologist</option>
                 </select>
               </div>
 

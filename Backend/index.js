@@ -4,7 +4,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const admin_route = require('./routes/admin_route');
 const auth_route= require('./routes/auth_route');
-const patient_route = require('./routes/patient_route')
+const patient_route = require('./routes/patient_route');
+const home_route = require('./routes/home_route');
 
 const app = express();
 const PORT = 8000;
@@ -13,7 +14,7 @@ const PORT = 8000;
 app.use(
     cors({
       credentials: true,
-      origin: 'https://doctor-appointment-ashen.vercel.app/', // matches frontend URL
+      origin: 'http://localhost:3000', // matches frontend URL
     })
   );
 app.use(express.json());
@@ -30,6 +31,8 @@ mongoose
 app.use('/admin', admin_route);
 app.use('/auth',auth_route);
 app.use('/patient',patient_route);
+app.use('/home',home_route);
+
 
 app.listen(PORT, () => {
     console.log(`Server started at http://localhost:${PORT}`);

@@ -22,7 +22,7 @@ function ListDoctors() {
 
   const [selectedSpecialist, setSelectedSpecialist] = useState("");
 
-  const specialists = [...new Set(doctors.map((doctor) => doctor.doct_specialization))]; // Use doct_specialization
+  const specialists = [...new Set(doctors.map((doctor) => doctor.doct_specialization))];
 
   const handleFilterChange = (specialist) => {
     setSelectedSpecialist((prev) => (prev === specialist ? "" : specialist));

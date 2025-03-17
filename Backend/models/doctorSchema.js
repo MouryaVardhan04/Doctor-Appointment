@@ -21,7 +21,7 @@ const doctorSchema = new mongoose.Schema({
     doct_specialization: {
         type: String,
         required: true,
-        enum: ['cardiology', 'neurology', 'orthopedics', 'dermatology', 'pediatrics','gynecology']
+        enum: ['General Physician', 'Gynecologist', 'Dermatologist', 'Pediatricians', 'Neurologist','Gastroenterologist']
     },
     doct_degree: {
         type: String,

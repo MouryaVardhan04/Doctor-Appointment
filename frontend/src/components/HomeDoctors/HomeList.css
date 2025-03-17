@@ -1,0 +1,151 @@
+/* General Styles */
+.box2 {
+  text-align: center;
+  padding: 20px;
+}
+
+.box2 h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.box2 p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.images {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.speciality-item {
+  cursor: pointer;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.speciality-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.speciality-item p {
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+.box1 {
+  background-color: blueviolet;
+  padding: 0 15px;
+  border-radius: 8px;
+  height: 500px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  color: white;
+  width: 90%;
+  margin: auto;
+
+}
+
+
+.box1-txt {
+  width: 50%;
+  font-family: "urbanist";
+  font-size: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 25px;
+}
+
+.box1-txt h1 {
+  font-size: 3rem;
+  color: #f9f9f9;
+}
+
+.box1-btn {
+  padding: 13px 25px;
+  border-radius: 20px;
+  font-family: "urbanist";
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  border: 0;
+  margin-top: 3px;
+  background-color: white;
+}
+
+.box1>img {
+  position: relative;
+  top: 46px;
+}
+
+/* Doctors List */
+.Box1 {
+  padding: 20px;
+  text-align: center;
+}
+
+.Box1 span {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.doctor-container {
+  display: inline-block;
+  width: 250px;
+  height: 310px;
+  margin: 10px;
+  padding: 15px;
+  text-decoration: none;
+  color: inherit;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.doctor-container:hover {
+  transform: translateY(-5px);
+}
+
+.imgContainer {
+  width: 100px;
+  height: 100px;
+  margin-inline: 30px;
+}
+
+.imgContainer img {
+  width: 200px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.Box1 h2 {
+  font-size: 20px;
+  margin-top: 160px;
+}
+
+.Box1 p {
+  font-size: 14px;
+  color: #353434;
+}
+
+.no-doctors {
+  font-size: 16px;
+  color: red;
+  margin-top: 20px;
+}

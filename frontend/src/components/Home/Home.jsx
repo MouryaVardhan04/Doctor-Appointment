@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import HomeList from '../HomeDoctors/HomeList';
 
 function Home() {
   const [username, setUsername] = useState("");
@@ -23,8 +24,7 @@ function Home() {
 
   return (
     <div>
-      <h1>Home Page</h1>
-      <h1>{username ? `Welcome, ${username}` : "Loading..."}</h1>
+      <HomeList/>
     </div>
   );
 }
