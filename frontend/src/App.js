@@ -10,6 +10,8 @@ import GetProfile from "./components/Profile/getprofile";
 import EditProfile from "./components/Profile/editProfile";
 import { UserProvider } from "./UserContext";
 import Footer from "./components/Footer/Footer";
+import HomeAllDoc from "./components/HomeAlldoctors/HomeAllDoc";
+import About from "./components/About/About";
 
 
 function App() {
@@ -18,13 +20,16 @@ function App() {
       <Router>
         <Navbar /> {/* ✅ Navbar Added */}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin/*" element={<AdminHome />} />
           <Route path="/register" element={<Register />} />
           <Route path="/postprofile" element={<Profile />} />
           <Route path="/profile" element={<GetProfile />} />
           <Route path="/editprofile" element={<EditProfile />} />
+          <Route path="/alldoctors" element={<HomeAllDoc/>} />
+          <Route path="/about" element={<About/>} />
+
         </Routes>
       </Router>
       <Footer/>

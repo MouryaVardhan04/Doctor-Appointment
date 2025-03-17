@@ -1,0 +1,37 @@
+.container {
+    width: 85%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.b2{
+    display: flex;
+    gap: 30px;
+}
+
+.boxes{
+    display: flex;
+}
+.boxes div{
+    border: 1px solid black;
+    padding: 10px 15px
+}
+.inside-b1:hover{
+    color: white;
+    background-color: blueviolet;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+.inside-b2:hover{
+    color: white;
+    background-color: blueviolet;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+.inside-b3:hover{
+    color: white;
+    background-color: blueviolet;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}

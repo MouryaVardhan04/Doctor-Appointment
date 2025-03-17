@@ -31,12 +31,12 @@ function HomeList() {
   }, []);
 
   // Extract specializations and count occurrences
-  const specialistCounts = doctors.reduce((acc, doctor) => {
-    acc[doctor.doct_specialization] = (acc[doctor.doct_specialization] || 0) + 1;
-    return acc;
-  }, {});
+  // const specialistCounts = doctors.reduce((acc, doctor) => {
+  //   acc[doctor.doct_specialization] = (acc[doctor.doct_specialization] || 0) + 1;
+  //   return acc;
+  // }, {});
 
-  const specialists = Object.keys(specialistCounts);
+  // const specialists = Object.keys(specialistCounts);
 
   const handleFilterChange = (specialist) => {
     setSelectedSpecialist((prev) => (prev === specialist ? "" : specialist));

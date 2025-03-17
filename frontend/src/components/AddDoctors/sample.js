@@ -1,137 +1,80 @@
-import React from "react";
-import { FaLongArrowAltRight } from "react-icons/fa";
-import image from "../pages/doctors.png";
-import img1 from "../pages/img1.svg";
-import img2 from "../pages/img2.svg";
-import img3 from "../pages/img3.svg";
-import img4 from "../pages/img4.svg";
-import img5 from "../pages/img5.svg";
-import img6 from "../pages/img6.svg";
-import "./Home.css";
-import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import "./Doctor.css";
 import { fetchData } from "../../api/fetchData";
 import Card from "../layout/Card";
 import {NavLink} from "react-router-dom"
-const Home = () => {
-  const { data } = useQuery({
-    queryKey: ["doctors"],
-    queryFn: fetchData,
-  });
-  const limitedData = data?.slice(0, 10) || [];
-  console.log(limitedData)
+const Doctors = () => {
+  const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useState([]);
+  const [id, setId] = useState(-1);
+  const myMap = new Map();
+  myMap.set("General Physician", 0);
+  myMap.set("Gynecologist", 1);
+  myMap.set("Dermatologist", 2);
+  myMap.set("Pediatrician", 3);
+  myMap.set("Neurology", 4);
+  myMap.set("Gaestrontologist", 5);
+  const handleClick = (e) => {
+    const text = e.target.innerText;
+    const newId=myMap.get(text)
+    const updatedId=id==newId?-1:newId
+    setId(updatedId);
+    if(updatedId==-1){
+      setSearchData(data);
+    }
+    else{
+      setSearchData(data.filter((currData)=>currData.doct_specialization.toLowerCase().includes(text.toLowerCase())))
+    }
+  };
+  useEffect(() => {
+    setData(fetchData);
+    setSearchData(fetchData);
+  }, []);
+
   return (
     <>
-      <section className="container">
-        <div className="box1">
-          <div className="box1-txt">
-            <h1>Book Appointment With Trusted Doctors</h1>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                marginTop: "10px",
-              }}
+      <section className="doctor-container">
+        <p>Browse through the doctors specialist</p>
+        <div className="main">
+          <div style={{width: "250px"}}>
+            <button
+              className={`main-1 ${id == 0 ? "isActive" : ""}`}
+              onClick={handleClick}
             >
-              <img
-                src="https://prescripto.vercel.app/assets/group_profiles-BCL6AVF5.png"
-                alt="people"
-                height={"40px"}
-                width={"85px"}
-              />
-              <span>
-                Simply browse through our extensive list of doctors and book
-                appointment hassle-free
-              </span>
-            </div>
-            <div>
-              <button className="box1-btn">
-                Book Appointment <FaLongArrowAltRight />
-              </button>
-            </div>
+              General Physician
+            </button>
+            <button  className={`main-1 ${id == 1 ? "isActive" : ""}`}
+              onClick={handleClick}>
+              Gynecologist
+            </button>
+            <button  className={`main-1 ${id == 2 ? "isActive" : ""}`}
+              onClick={handleClick}>
+              Dermatologist
+            </button>
+            <button  className={`main-1 ${id == 3 ? "isActive" : ""}`}
+              onClick={handleClick}>
+              Pediatrician
+            </button>
+            <button  className={`main-1 ${id == 4 ? "isActive" : ""}`}
+              onClick={handleClick}>
+              Neurology
+            </button>
+            <button  className={`main-1 ${id == 5 ? "isActive" : ""}`}
+              onClick={handleClick}>
+              Gaestrontologist
+            </button>
           </div>
-          <img src={image} alt="doctors" />
-        </div>
-
-        <div className="box2">
-          <h2>Find by Speciality</h2>
-          <p>
-            Simply browse through our extensive list of trusted doctors,
-            schedule your appointment hassle-free.
-          </p>
-          <div className="images">
-            <div>
-              <img src={img1} alt="" />
-              <p>General physician</p>
-            </div>
-            <div>
-              <img src={img2} alt="" />
-              <p>General physician</p>
-            </div>
-            <div>
-              <img src={img3} alt="" />
-              <p>General physician</p>
-            </div>
-            <div>
-              <img src={img4} alt="" />
-              <p>General physician</p>
-            </div>
-            <div>
-              <img src={img5} alt="" />
-              <p>General physician</p>
-            </div>
-            <div>
-              <img src={img6} alt="" />
-              <p>General physician</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="box3">
-          <h2>Top Doctors to Book</h2>
-          <p>Simply browse through our extensive list of trusted doctors.</p>
-          <ul className="cards-grid">
-          {limitedData.map((currData,index) => {
-               return <Card key={index} currData={currData}/>;
-            })}
+          <div className="main-2">
+            <ul className="cards-grid">
+              {searchData.map((currData, index) => {
+                return <NavLink to={`/appointments/${currData.doct_name}`} ><Card key={index} currData={currData} /></NavLink>
+              })}
             </ul>
-            <NavLink to={`/doctors`}><button className="more-btn">more</button></NavLink>
-          
-        </div>
-
-        <div className="box1">
-          <div className="box1-txt">
-            <h1>Book Appointment With Trusted Doctors</h1>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                marginTop: "10px",
-              }}
-            >
-              <img
-                src="https://prescripto.vercel.app/assets/group_profiles-BCL6AVF5.png"
-                alt="people"
-                height={"40px"}
-                width={"85px"}
-              />
-              <span>
-                Simply browse through our extensive list of doctors and book
-                appointment hassle-free
-              </span>
-            </div>
-            <div>
-              <button className="box1-btn">
-                Book Appointment <FaLongArrowAltRight />
-              </button>
-            </div>
           </div>
-          <img src={image} alt="doctors" />
         </div>
       </section>
     </>
   );
 };
 
-export default Home;
+export default Doctors;

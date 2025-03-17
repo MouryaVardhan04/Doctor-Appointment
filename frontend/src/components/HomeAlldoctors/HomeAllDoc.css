@@ -1,0 +1,76 @@
+.alldoctor-containar {
+    display: flex;
+    flex-wrap: wrap; /* Allows elements to wrap on smaller screens */
+}
+
+.left-filter {
+    width: 15%;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+}
+.label{
+    width: 190px;
+}
+
+/* Doctor list container */
+.alldoctor-containar .Box1 {
+    width: 85%;
+    margin-left: 15%;
+    max-height: 80vh;
+    overflow-y: scroll;
+}
+
+.speciality-items {
+    cursor: pointer;
+    border: 2px solid black;
+    text-align: center;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.speciality-item:hover {
+    background-color: #f0f0f0;
+}
+
+.speciality-item.selected {
+    background-color: #bbbcbd;
+    color: white;
+    transform: scale(1.02);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .alldoctor-containar {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center; /* Center align the content */
+    }
+
+    .left-filter {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 20px; /* Adds spacing between filter and doctor list */
+    }
+
+    .images {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .speciality-item {
+        padding: 8px 12px;
+        background: #f4f4f4;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .alldoctor-containar .Box1 {
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 20%;
+    }
+}
