@@ -12,7 +12,7 @@ import { UserProvider } from "./UserContext";
 import Footer from "./components/Footer/Footer";
 import HomeAllDoc from "./components/HomeAlldoctors/HomeAllDoc";
 import About from "./components/About/About";
-
+import Contact from "./components/Contact/Contact"
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
           <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/alldoctors" element={<HomeAllDoc/>} />
           <Route path="/about" element={<About/>} />
-
+          <Route path="/contact" element={<Contact/>} />
         </Routes>
       </Router>
       <Footer/>

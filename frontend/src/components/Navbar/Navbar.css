@@ -7,7 +7,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 35% 55% 13%;
+  grid-template-columns: 45% 35% 20%;
   align-items: center;
   justify-content: center;
 }

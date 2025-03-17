@@ -5,7 +5,7 @@
     margin-top: 100px;
     border-top: 1px solid black;
     padding-top: 20px;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
   }
   
   /* Grid Layout */
@@ -61,6 +61,11 @@
     color: #007bff;
   }
   
+  .footer-bottom{
+    text-align: center;
+    border-top: 1px solid rgb(49, 49, 49);
+    color: rgb(40, 40, 40);
+  }
   /* Responsive Design */
   @media (max-width: 768px) {
     .footer {
