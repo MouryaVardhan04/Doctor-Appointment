@@ -1,0 +1,49 @@
+:root {
+    --duration: 1.5s;
+    --container-height: 45vh;
+    --box-size: 40px;
+    --box-border-radius: 15%;
+}
+body{
+    height: 100%;
+}
+.load-container {
+    height: var(--container-height);
+    display: flex;
+    flex-direction: row; /* Change to row for horizontal alignment */
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 8px; /* Adjust spacing between boxes */
+}
+
+.loadbox {
+    width: var(--box-size);
+    height: var(--box-size);
+    background-color: lightblue;
+    border-radius: var(--box-border-radius);
+    box-shadow: 0px 0px 10px 0px rgba(28, 159, 255, 0.4);
+    
+    /* Applying animation */
+    animation: move var(--duration) ease-in-out infinite alternate;
+}
+
+/* Different colors per box */
+.loadbox:nth-child(1) { background-color: #1C9FFF; animation-delay: 0s; }
+.loadbox:nth-child(2) { background-color: #1FB1FD; animation-delay: 0.2s; }
+.loadbox:nth-child(3) { background-color: #22C7FB; animation-delay: 0.4s; }
+.loadbox:nth-child(4) { background-color: #23D3FB; animation-delay: 0.6s; }
+loadbox:nth-child(5) { background-color: #25E5FC; animation-delay: 0.8s; }
+
+/* Updated animation (Moves up & down for effect) */
+@keyframes move {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}

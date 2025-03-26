@@ -1,34 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './appoint.css';
 
 function Appointment() {
-  const sampleAppointments = [
-    { id: 1, patient: 'Mourya Vardhan', age: 30, dateTime: '2025-03-12 10:00 AM', doctor: 'Dr. Mourya Vardhan', fees: '$50' },
-    { id: 2, patient: 'Jane Doe', age: 28, dateTime: '2025-03-12 11:00 AM', doctor: 'Dr. Lee', fees: '$60' },
-  ];
-
-  // State to track appointments, search query, and filtered appointments
-  const [appointments, setAppointments] = useState(sampleAppointments);
+  const [appointments, setAppointments] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Function to filter appointments based on patient and doctor name
-  const filteredAppointments = appointments.filter((appointment) =>
-    appointment.patient.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    appointment.doctor.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Fetch appointments from backend
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/admin/adminAppoint"); // Adjust the API URL if needed
+        const data = await response.json();
+        setAppointments(data);
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+      }
+    };
+    fetchAppointments();
+  }, []);
 
-  const handleButtonClick = (id, action) => {
-    setAppointments((prevAppointments) =>
-      prevAppointments.map((appointment) =>
-        appointment.id === id
-          ? {
-              ...appointment,
-              status: action,
-            }
-          : appointment
-      )
-    );
+  // Function to update appointment status
+  const handleButtonClick = async (id, action) => {
+    try {
+      const response = await fetch(`http://localhost:8000/admin/acceptAppointment/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ appointment_status: action }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update appointment status");
+      }
+
+      // Update local state after successful API call
+      setAppointments((prevAppointments) =>
+        prevAppointments.map((appointment) =>
+          appointment._id === id ? { ...appointment, appointment_status: action } : appointment
+        )
+      );
+    } catch (error) {
+      console.error("Error updating appointment status:", error);
+    }
   };
+
+  // Filter appointments based on search query
+  const filteredAppointments = appointments.filter(
+    (appointment) =>
+      appointment.patient_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      appointment.doctor_name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="appointments-container">
@@ -47,7 +67,7 @@ function Appointment() {
           <tr>
             <th>S.No</th>
             <th>Patient</th>
-            <th>Age</th>
+            <th>DOB</th>
             <th>Date & Time</th>
             <th>Doctor</th>
             <th>Fees</th>
@@ -56,29 +76,25 @@ function Appointment() {
         </thead>
         <tbody>
           {filteredAppointments.map((appointment, index) => (
-            <tr key={appointment.id}>
+            <tr key={appointment.appointment_id}>
               <td>{index + 1}</td>
-              <td>{appointment.patient}</td>
-              <td>{appointment.age}</td>
-              <td>{appointment.dateTime}</td>
-              <td>{appointment.doctor}</td>
-              <td>{appointment.fees}</td>
+              <td>{appointment.patient_name}</td>
+              <td>{appointment.patient_dob || "N/A"}</td>
+              <td>{appointment.appointment_date} {appointment.appointment_time}</td>
+              <td>{appointment.doctor_name}</td>
+              <td>{appointment.doct_consultationFees}</td>
               <td>
-                {appointment.status === 'cancelled' ? (
-                  <p className="action-btn cancelled" onClick={() => handleButtonClick(appointment.id, 'cancelled')}>
-                    &#10006; Cancelled
-                  </p>
-                ) : appointment.status === 'booked' ? (
-                  <p className="action-btn booked" onClick={() => handleButtonClick(appointment.id, 'booked')}>
-                    &#9989; Booked
-                  </p>
+              {appointment.appointment_status === 'Rejected' ? (
+                  <p className="action-btn cancelled">&#10006; Rejected</p>
+                ) : appointment.appointment_status === 'Accepted' ? (
+                  <p className="action-btn booked">&#9989; Accepted</p>
                 ) : (
                   <>
-                    <button className="action-btn" onClick={() => handleButtonClick(appointment.id, 'booked')}>
-                      &#9989; 
+                    <button className="action-btn" onClick={() => handleButtonClick(appointment.appointment_id, 'Accepted')}>
+                      &#9989;
                     </button>
-                    <button className="action-btn" onClick={() => handleButtonClick(appointment.id, 'cancelled')}>
-                      &#10006; 
+                    <button className="action-btn" onClick={() => handleButtonClick(appointment.appointment_id, 'Rejected')}>
+                      &#10006;
                     </button>
                   </>
                 )}

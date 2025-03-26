@@ -1,5 +1,5 @@
 .header-width {
-  width: 85%;
+  width: 90%;
   margin: auto;
   margin-bottom: 20px;
   margin-top: 10px;
@@ -8,14 +8,14 @@
 .grid {
   display: grid;
   grid-template-columns: 45% 39% 15%;
-  align-items: center;
+  align-items:center;
   justify-content: center;
 }
 
 /* Navigation Bar */
 .navbar  ul {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   list-style: none; /* Remove list dots */
   padding: 0;
   margin: 0;
@@ -106,6 +106,8 @@
 
 .logout-button:hover {
   background: #c9302c;
+  color: white;
+
 }
 
 .userprofile{
@@ -113,6 +115,55 @@
   border: 1px solid black;
   border-radius: 10px;
 }
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+  border: 2px solid rgb(109, 108, 108);
+  text-align: center;
+  border-radius:10px ;
+}
+
+.profile-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 25px;
+  right: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
+  min-width: 150px;
+  z-index: 1000;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  text-align: center;
+}
+
+.dropdown-menu li:hover {
+  background: #f0f0f0;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: red;
+  font-size: 16px;
+  width: 100%;
+}
+
 /* Responsive Auth Links */
 @media (max-width: 768px) {
   .auth-links {

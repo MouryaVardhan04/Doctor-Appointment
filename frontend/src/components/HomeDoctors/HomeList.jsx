@@ -50,7 +50,7 @@ function HomeList() {
 <section className="container">
   <div className="box1">
     <div className="box1-txt">
-      <h1>Book Appointment With Trusted Doctors</h1>
+      <h1 style={{fontSize:"2.0rem"}}>Book Appointment With Trusted Doctors</h1>
       <div
         style={{
           display: "flex",
@@ -65,7 +65,7 @@ function HomeList() {
           height={"40px"}
           width={"85px"}
         />
-        <span>
+        <span style={{fontSize:"0.8rem"}}>
           Simply browse through our extensive list of doctors and book
           appointment hassle-free
         </span>
@@ -109,6 +109,7 @@ function HomeList() {
   <div className="Box1">
     <h1>Book Appointment With Trusted Doctors</h1>
     <span>Simply browse through our extensive list of doctors and book appointments hassle-free.</span>
+    <div className="doc-cont">
     {filteredDoctors.length > 0 ? (
       filteredDoctors.map((doctor) => (
         <Link to={`/doctor/${doctor._id}`} key={doctor._id} className="doctor-container">
@@ -125,6 +126,8 @@ function HomeList() {
     ) : (
       <p className="no-doctors">No doctors found for this specialization.</p>
     )}
+    </div>
+
   </div>
 
 </section> 

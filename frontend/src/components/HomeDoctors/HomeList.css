@@ -70,7 +70,7 @@
 }
 
 .box1-txt h1 {
-  font-size: 3rem;
+  font-size: 2vw;
   color: #f9f9f9;
 }
 
@@ -103,7 +103,10 @@
   font-size: 18px;
   margin-bottom: 20px;
 }
-
+.doc-cont{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+}
 .doctor-container {
   display: inline-block;
   width: 250px;

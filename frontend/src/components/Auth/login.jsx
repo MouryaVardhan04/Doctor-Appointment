@@ -1,16 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../UserContext'; // ✅ Import context
-
+import { UserContext } from '../../UserContext';
+import Notifi from '../Notification/notifi'; // ✅ Import notification component
 import './auth.css';
 
 function Login() { 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); 
+  const [errorMessage, setErrorMessage] = useState('');
+  const [notifiMessage, setNotifiMessage] = useState(''); // ✅ Notification state
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext); // ✅ Use global user state
-  
+  const { setUser } = useContext(UserContext);
+
   async function handleLogin(ev) {
     ev.preventDefault(); 
   
@@ -22,24 +23,28 @@ function Login() {
         credentials: 'include'
       });
   
-      const data = await response.json(); // Parse the JSON response
+      const data = await response.json();
   
       if (response.ok) {
         console.log(data);
-        alert(data.message); // Display success message from the server
         setUser({ id: data.id, username: data.username });
-        navigate('/'); 
+        setNotifiMessage('✅ Login Successful!'); // ✅ Show success message
+        setTimeout(() => navigate('/'), 2000); // ✅ Redirect after 2s
       } else {
         setErrorMessage(data.message || 'Invalid email or password');
+        setNotifiMessage('❌ ' + (data.message || 'Login Failed!')); // ✅ Show error notification
       }
     } catch (error) {
       console.error('❌ Error logging in:', error);
-      setErrorMessage('❌ Server error, please try again.'); 
+      setErrorMessage('❌ Server error, please try again.');
+      setNotifiMessage('❌ Server error, please try again.'); // ✅ Show error notification
     }
   }
   
   return (
     <div className='auth'>
+      {notifiMessage && <Notifi message={notifiMessage} onClose={() => setNotifiMessage('')} />} {/* ✅ Notification Component */}
+
       <form onSubmit={handleLogin}>
         <h2>Login</h2>
 
@@ -57,7 +62,7 @@ function Login() {
           onChange={(ev) => setPassword(ev.target.value)}
         />
 
-        {errorMessage && <p className="error">{errorMessage}</p>} {/* ✅ Display error message conditionally */}
+        {errorMessage && <p className="error">{errorMessage}</p>} 
 
         <p>Don't have an account? <a href="/register">Register</a></p>
         <button type="submit">Login</button>

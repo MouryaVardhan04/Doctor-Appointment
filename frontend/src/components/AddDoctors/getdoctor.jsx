@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './getdoctor.css';
+import Loading from '../Loading/loading';
 
 function GetDoctor() {
   const { id } = useParams();
@@ -68,7 +69,7 @@ function GetDoctor() {
     }
   };
 
-  if (loading) return <div className="loading">Loading...</div>;
+  if (loading) return <div className="loading"><Loading/></div>;
   if (error) return <div className="error">Error: {error}</div>;
 
   return (

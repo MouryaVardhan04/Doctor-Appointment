@@ -1,0 +1,50 @@
+.notification {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid black;
+    animation: slide-in 0.5s ease-out;
+    width: 250px;
+    font-size: 16px;
+    box-sizing: border-box; /* ✅ Ensure padding doesn't affect height */
+    height: 50px;
+  }
+  
+  /* Progress Bar Animation */
+  .progress-bar {
+    height: 6px;
+    background-color: blueviolet;
+    width: 100%;
+    position: absolute; /* ✅ Positioned at the bottom */
+    bottom: 0;
+    margin-top: 5px;
+    left: 0;
+    animation: shrink 5s linear forwards;
+}
+  
+  /* Slide-in animation */
+  @keyframes slide-in {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Progress bar decreasing effect */
+  @keyframes shrink {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 0;
+    }
+  }
+  

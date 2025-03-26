@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import navigate hook
 import "./profile.css"; // Import CSS file
+import Loading from "../Loading/loading";
 
 function GetProfile() {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ function GetProfile() {
   };
 
   if (isLoading) {
-    return <p>Loading profile...</p>;
+    return <Loading/>;
   }
 
   return (

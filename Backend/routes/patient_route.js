@@ -31,8 +31,8 @@ const upload = multer({ storage });
 
 router.post('/addpatient', upload.single('file'), async (req, res) => {
   try {
-    console.log('Received Data:', req.body);
-    console.log('Uploaded File:', req.file);
+    // console.log('Received Data:', req.body);
+    // console.log('Uploaded File:', req.file);
 
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded!" });

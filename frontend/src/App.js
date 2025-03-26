@@ -14,6 +14,8 @@ import HomeAllDoc from "./components/HomeAlldoctors/HomeAllDoc";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact"
 import Doctor from "./components/Doctor/Doctor";
+import PatientAppointment from "./components/Appointments/patientAppoint";
+import Loading from "./components/Loading/loading";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
           <Route path="/about" element={<About/>} />
           <Route path="/contact" element={<Contact/>} />
           <Route path="/doctor/:id" element={<Doctor/>} />
+          <Route path="/appointments" element={<PatientAppointment/>} />
+          <Route path="/load" element={<Loading/>} />
         </Routes>
       </Router>
       <Footer/>

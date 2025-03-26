@@ -4,6 +4,8 @@ const multer = require('multer');
 const path = require('path'); // Import path module
 const mongoose = require('mongoose'); // Import mongoose for ObjectId conversion
 const Doctor = require('../models/doctorSchema'); // Import Doctor Schema
+const Patient = require("../models/patientSchema");
+const Appointment = require("../models/appoinmentSchema");
 
 const app = express();
 
@@ -119,6 +121,87 @@ router.put("/editdoctor/:id", upload.single("file"), async (req, res) => {
   } catch (error) {
     console.error("Error updating doctor:", error);
     res.status(500).json({ message: "Error updating doctor", error });
+  }
+});
+
+// Appointments 
+router.get("/adminAppoint", async (req, res) => {
+  try {
+    // Fetch all appointments
+    const appointments = await Appointment.find({});
+    
+    if (!appointments.length) {
+      return res.status(404).json({ message: "No appointments found" });
+    }
+
+    // Fetch doctor and patient details for each appointment
+    const formattedAppointments = await Promise.all(
+      appointments.map(async (appointment) => {
+        // Fetch patient details
+        const patientUser = await Patient.findOne({patient_userId:appointment.patient_userId});
+
+        
+        // Fetch doctor details
+        const doctor = await Doctor.findById(appointment.doctor_id);
+        
+                // Calculate patient age from date of birth
+
+                let formattedDob = "Unknown";
+                if (patientUser && patientUser.patient_dob) {
+                  const birthDate = new Date(patientUser.patient_dob);
+                  if (!isNaN(birthDate.getTime())) {  // Check if it's a valid date
+                    formattedDob = birthDate.toISOString().split("T")[0];  // Extract only YYYY-MM-DD
+                  }
+                }
+        return {
+          doctor_name: doctor ? doctor.doct_name : "Unknown Doctor",
+          doctor_img: doctor ? doctor.file : "No image",
+          doct_consultationFees: doctor ? doctor.doct_consultationFees : "N/A",
+          patient_name: patientUser ? patientUser.patient_name : "Unknown Patient",
+          patient_img: patientUser ? patientUser.file : "No image",
+          patient_dob:  formattedDob,
+          appointment_id: appointment._id,
+          appointment_date: appointment.appoinment_date,
+          appointment_time: appointment.appoinment_time,
+          appointment_status: appointment.appoinment_status
+        };
+      })
+    );
+
+    res.json(formattedAppointments);
+  } catch (error) {
+    console.error("Error fetching appointments:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.put("/acceptAppointment/:id", async (req, res) => {
+  try {
+    const appointment_id = req.params.id;
+    const { appointment_status } = req.body; // Extract status correctly
+
+    if (!appointment_status) {
+      return res.status(400).json({ message: "Appointment status is required" });
+    }
+
+    // Find the appointment by ID and update the status
+    const updatedAppointment = await Appointment.findByIdAndUpdate(
+      appointment_id,
+      { appointment_status }, // Update only the status
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedAppointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    res.json({
+      message: `Appointment status updated to '${appointment_status}' successfully`,
+      appointment: updatedAppointment,
+    });
+  } catch (error) {
+    console.error("Error updating appointment status:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 

@@ -18,6 +18,11 @@ const AppointmentSchema = new mongoose.Schema({
   appoinment_time:{
     type:String,
     required:true,
+  },
+  appoinment_status: {
+    type: String,
+    enum: ["Accepted", "Rejected"],
+    default: "Accepted"
   }
 }, { timestamps: true });  // Adds createdAt & updatedAt automatically
 

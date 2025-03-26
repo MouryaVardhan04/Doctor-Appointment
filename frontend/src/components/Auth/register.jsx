@@ -1,20 +1,20 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { UserContext } from '../../UserContext'; // ✅ Import context
-
+import { UserContext } from '../../UserContext';
+import Notifi from '../Notification/notifi'; // ✅ Import Notification Component
 import './auth.css';
 
 function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null); // ✅ Stores notification message
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext); // ✅ Use global user state
+  const { setUser } = useContext(UserContext);
 
   async function handleRegister(ev) {
     ev.preventDefault();
-    setError(null);
+    setMessage(null); // Reset notification
 
     try {
       const response = await fetch('http://localhost:8000/auth/register', {
@@ -27,19 +27,21 @@ function Register() {
       const data = await response.json();
 
       if (response.ok) {
-        setUser(data.user); // ✅ Update global user state
-        alert('Successfully Registered');
-        navigate('/postprofile'); // Redirect after successful registration
+        setUser(data.user);
+        setMessage('✅ Successfully Registered'); // ✅ Success Notification
+        setTimeout(() => navigate('/postprofile'), 5000);
       } else {
-        setError(data.message || 'Registration failed. Try again.');
+        setMessage(data.message || '❌ Registration failed. Try again.');
       }
     } catch (err) {
-      setError('Something went wrong. Please try again later.');
+      setMessage('❌ Something went wrong. Please try again.');
     }
   }
 
   return (
     <div className='auth'>
+      {message && <Notifi message={message} onClose={() => setMessage(null)} />} {/* ✅ Display Notification */}
+      
       <form onSubmit={handleRegister}>
         <h2>Register</h2>
 
@@ -63,8 +65,6 @@ function Register() {
           value={password}
           onChange={(ev) => setPassword(ev.target.value)}
         />
-
-        {error && <p style={{ color: 'red' }}>{error}</p>}
 
         <p>
           Already have an account? <Link to="/login">Login</Link>

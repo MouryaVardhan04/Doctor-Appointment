@@ -1,5 +1,4 @@
 /* appointment.css */
-
 .appointments-container {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -40,6 +39,8 @@
     padding-block: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    text-align: center;
+
   }
   
   th {
@@ -70,4 +71,99 @@
   button.action-btn:focus {
     outline: none;
   }
-  
+  /* appoint.css */
+
+/* Base styles */
+.appointment-container {
+  max-width: 950px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+}
+
+.appointment-container h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Loading text */
+.appointment-container p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Appointment list */
+.appointment-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Appointment card */
+.appointment-card {
+  background: #f9f9f9;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.appointment-card:hover {
+  transform: scale(1.02);
+}
+
+.appointment-card h3 {
+  font-size: 18px;
+  color: #007bff;
+  margin-bottom: 5px;
+}
+
+.appointment-card p {
+  font-size: 14px;
+  color: #666;
+  margin: 3px 0;
+}
+
+.appointment-card p:last-child {
+  font-weight: bold;
+  color: #28a745;
+}
+
+.cancelbtn , .Paymentbtn{
+  width: 100px;
+  padding: 5px;
+  margin-inline: 5px;
+  background-color: blueviolet;
+  color: white;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.appointment-table th,td{
+  text-align: center;
+}
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .appointment-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .appointment-card {
+    padding: 10px;
+  }
+
+  .appointment-card h3 {
+    font-size: 16px;
+  }
+
+  .appointment-card p {
+    font-size: 13px;
+  }
+}

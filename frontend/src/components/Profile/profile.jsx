@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./profile.css";
+import Loading from "../Loading/loading";
 
 function Profile() {
   const navigate = useNavigate();
@@ -105,7 +106,7 @@ function Profile() {
   return (
     <div className="patient-container">
       {isLoading ? (
-        <p>Loading user data...</p>
+        <Loading/>
       ) : user ? (
         <>
           <h2>Patient Profile</h2>
