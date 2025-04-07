@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import Notifi from "../Notification/notifi"; // Import the Notification component
 import "./addDoctor.css";
 
 function AddDoctor() {
@@ -14,6 +15,7 @@ function AddDoctor() {
   const [doct_consultationFees, setdoct_consultationFees] = useState("");
   const [doct_address, setdoct_address] = useState("");
   const [doct_about, setdoct_about] = useState("");
+  const [notification, setNotification] = useState(null); // State for notification
 
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -21,7 +23,7 @@ function AddDoctor() {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImage(URL.createObjectURL(file)); // Preview the selected image
+      setImage(URL.createObjectURL(file));
       setFile(file);
     }
   };
@@ -50,7 +52,8 @@ function AddDoctor() {
     });
 
     if (response.ok) {
-      alert("Successfully added the Doctor!");
+      setNotification({ message: "Doctor added successfully!", type: "success" }); // Show success notification
+      setTimeout(() => setNotification(null), 1000); // Hide notification after 4 seconds
       setdoct_name("");
       setdoct_email("");
       setdoct_phone("");
@@ -64,7 +67,8 @@ function AddDoctor() {
       setImage(null); // Clear the image preview after successful submission
       navigate("/admin/listdoctors"); // Redirect after submission
     } else {
-      alert("Failed to add Doctor!");
+      setNotification({ message: "Failed to add Doctor. Please try again.", type: "error" }); // Show error notification
+      setTimeout(() => setNotification(null), 4000); // Hide notification after 4 seconds
     }
   };
 
@@ -72,6 +76,7 @@ function AddDoctor() {
     <>
       <h1>Add Doctor</h1>
       <div className="add-doctor-container">
+        {notification && <Notifi message={notification.message} type={notification.type} />} {/* Show notification */}
         <form className="doctor-form" onSubmit={addDoctor}>
           {/* Doctor Image */}
           <div className="form-group image-upload">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./profile.css"; // Import CSS file
+import Notifi from "../Notification/notifi"; // ✅ Import Notification
+import "./profile.css";
 
 function EditProfile() {
   const navigate = useNavigate();
@@ -12,10 +13,11 @@ function EditProfile() {
   const [patient_address, setPatientAddress] = useState("");
   const [patient_dob, setPatientDob] = useState("");
   const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(null); // New image preview
-  const [existingImage, setExistingImage] = useState(null); // Existing profile image
+  const [preview, setPreview] = useState(null);
+  const [existingImage, setExistingImage] = useState(null);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState(null); // ✅ Notification message
 
   useEffect(() => {
     async function fetchUser() {
@@ -31,7 +33,6 @@ function EditProfile() {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched User Data:", data);
           setUser(data.user);
           setUsername(data.user.username);
           setId(data.user.id);
@@ -61,13 +62,12 @@ function EditProfile() {
         setPatientPhone(patient.patient_phone);
         setPatientGender(patient.patient_gender);
         setPatientAddress(patient.patient_address);
-        setPatientDob(patient.patient_dob.split("T")[0]); // Extracts YYYY-MM-DD
+        setPatientDob(patient.patient_dob.split("T")[0]);
 
-        // Store existing profile image URL
         if (patient.profile_picture) {
           const imageUrl = `http://localhost:8000/uploads/${patient.profile_picture}`;
           setExistingImage(imageUrl);
-          setPreview(imageUrl); // Show existing image initially
+          setPreview(imageUrl);
         }
       } catch (err) {
         console.error("Error fetching patient data:", err);
@@ -83,7 +83,6 @@ function EditProfile() {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
 
-    // Generate a preview URL for the selected image
     if (selectedFile) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -118,18 +117,23 @@ function EditProfile() {
       );
 
       if (response.ok) {
-        alert("Profile updated successfully!");
-        navigate("/profile");
+        setMessage("✅ Profile updated successfully!");
+        setTimeout(() => navigate("/profile"), 1000); // Delay redirect for user to see notification
       } else {
-        console.error("Failed to update profile:", response.statusText);
+        const errorData = await response.json();
+        setMessage("❌ Failed to update profile: " + (errorData.message || "Unknown error"));
       }
     } catch (error) {
       console.error("Error updating profile:", error);
+      setMessage("❌ Error updating profile. Please try again.");
     }
   }
 
   return (
     <div className="profile-container">
+      {/* ✅ Show notification if message exists */}
+      {message && <Notifi message={message} onClose={() => setMessage(null)} />}
+
       <div className="profile-card">
         <h2 className="profile-name">Edit Profile</h2>
 

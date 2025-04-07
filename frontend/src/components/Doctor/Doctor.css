@@ -89,4 +89,50 @@
 }
 
 
+/* Already Booked Time Slot */
+.time li.booked {
+    background-color: #ddd;
+    color: #999;
+    pointer-events: none;
+    border-color: #bbb;
+  }
+  
+  
 
+  .booking-loading {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f4d776;
+    color: #856404;
+    padding: 12px 24px;
+    border: 1px solid #ffeeba;
+    border-radius: 10px;
+    z-index: 9999;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: slideDownFade 0.3s ease-in-out;
+  }
+  
+  .pulse-text {
+    animation: pulse 1.5s infinite;
+    font-weight: bold;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+  }
+  
+  @keyframes slideDownFade {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+  

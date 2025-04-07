@@ -1,50 +1,78 @@
 .notification {
-    position: fixed;
-    top: 100px;
-    right: 20px;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    padding: 5px;
-    border-radius: 5px;
-    border: 2px solid black;
-    animation: slide-in 0.5s ease-out;
-    width: 250px;
-    font-size: 16px;
-    box-sizing: border-box; /* ✅ Ensure padding doesn't affect height */
-    height: 50px;
-  }
-  
-  /* Progress Bar Animation */
-  .progress-bar {
-    height: 6px;
-    background-color: blueviolet;
-    width: 100%;
-    position: absolute; /* ✅ Positioned at the bottom */
-    bottom: 0;
-    margin-top: 5px;
-    left: 0;
-    animation: shrink 5s linear forwards;
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background-color: #e1e0e0;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #818181;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: slide-in 0.5s ease-out;
+  min-width: 250px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  z-index: 9999;
 }
-  
-  /* Slide-in animation */
-  @keyframes slide-in {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
+
+/* Title Style (message text) */
+.notification h6 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+  color: #535252;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  text-align: center; /* Make sure the text is centered in case it's multiline */
+  width: 100%; /* Ensure h6 occupies the full width of the container */
+}
+
+/* Progress Bar Animation */
+.progress-bar {
+  height: 6px;
+  background-color: #9900ff;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: shrink 2s linear forwards;
+  border-radius: 4px;
+}
+
+/* Slide-in Animation */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
   }
-  
-  /* Progress bar decreasing effect */
-  @keyframes shrink {
-    from {
-      width: 100%;
-    }
-    to {
-      width: 0;
-    }
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
-  
+}
+
+/* Progress Bar Shrink Animation */
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}
+
+.notification.success {
+  background-color: #e1e0e0;
+  color: white;
+}
+
+.notification.error {
+  color: white;
+}

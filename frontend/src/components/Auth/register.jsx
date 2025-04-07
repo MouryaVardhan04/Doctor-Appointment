@@ -8,13 +8,13 @@ function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState(null); // ✅ Stores notification message
+  const [notification, setNotification] = useState(null); // ✅ Notification with message and type
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
   async function handleRegister(ev) {
     ev.preventDefault();
-    setMessage(null); // Reset notification
+    setNotification(null); // Reset notification
 
     try {
       const response = await fetch('http://localhost:8000/auth/register', {
@@ -28,20 +28,32 @@ function Register() {
 
       if (response.ok) {
         setUser(data.user);
-        setMessage('✅ Successfully Registered'); // ✅ Success Notification
-        setTimeout(() => navigate('/postprofile'), 5000);
+        setNotification({ message: '✅ Successfully Registered', type: 'success' });
+        setTimeout(() => navigate('/postprofile'), 1000); // redirect after 5 seconds
       } else {
-        setMessage(data.message || '❌ Registration failed. Try again.');
+        setNotification({
+          message: data.message || '❌ Registration failed. Try again.',
+          type: 'error',
+        });
       }
     } catch (err) {
-      setMessage('❌ Something went wrong. Please try again.');
+      setNotification({
+        message: '❌ Something went wrong. Please try again.',
+        type: 'error',
+      });
     }
   }
 
   return (
-    <div className='auth'>
-      {message && <Notifi message={message} onClose={() => setMessage(null)} />} {/* ✅ Display Notification */}
-      
+    <div className="auth">
+      {notification && (
+        <Notifi
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification(null)}
+        />
+      )}
+
       <form onSubmit={handleRegister}>
         <h2>Register</h2>
 
@@ -50,6 +62,7 @@ function Register() {
           placeholder="Username"
           value={username}
           onChange={(ev) => setUsername(ev.target.value)}
+          required
         />
 
         <input
@@ -57,6 +70,7 @@ function Register() {
           placeholder="Email"
           value={email}
           onChange={(ev) => setEmail(ev.target.value)}
+          required
         />
 
         <input
@@ -64,6 +78,7 @@ function Register() {
           placeholder="Password"
           value={password}
           onChange={(ev) => setPassword(ev.target.value)}
+          required
         />
 
         <p>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import Notifi from "../Notification/notifi"; // ✅ Import Notification
 import './editdoctor.css';
 
 function EditDoctor() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // State for doctor details
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
   const [doct_name, setDoctName] = useState("");
@@ -18,8 +18,9 @@ function EditDoctor() {
   const [doct_consultationFees, setDoctConsultationFees] = useState("");
   const [doct_address, setDoctAddress] = useState("");
   const [doct_about, setDoctAbout] = useState("");
+  const [message, setMessage] = useState(null); // ✅ For notifications
+  const [type, setType] = useState("success"); // ✅ success / error
 
-  // Handle Image Preview
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -28,17 +29,14 @@ function EditDoctor() {
     }
   };
 
-  // Fetch Doctor Data on Component Mount
   useEffect(() => {
-    console.log("Fetching data for Doctor ID:", id);
     async function fetchDoctorData() {
       try {
         const response = await fetch(`http://localhost:8000/admin/getdoctor/${id}`);
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error("Failed to fetch doctor data");
         }
         const doctor = await response.json();
-        console.log("Doctor Data:", doctor); // Log fetched data
 
         setDoctName(doctor.doct_name);
         setDoctEmail(doctor.doct_email);
@@ -49,17 +47,16 @@ function EditDoctor() {
         setDoctConsultationFees(doctor.doct_consultationFees);
         setDoctAddress(doctor.doct_address);
         setDoctAbout(doctor.doct_about);
-        setImage(doctor.file); // Assuming `doctor.file` contains an image URL
+        setImage(`http://localhost:8000/uploads/${doctor.file}`);
       } catch (error) {
-        console.error("Error fetching doctor data:", error);
-        alert("Failed to fetch doctor data!");
-        navigate("/listdoctors");
+        setMessage("❌ Error fetching doctor data");
+        setType("error");
+        setTimeout(() => navigate("/admin/listdoctors"), 3000);
       }
     }
     fetchDoctorData();
   }, [id, navigate]);
 
-  
   const updateDoctor = async (ev) => {
     ev.preventDefault();
     const formData = new FormData();
@@ -72,39 +69,37 @@ function EditDoctor() {
     formData.append("doct_consultationFees", doct_consultationFees);
     formData.append("doct_address", doct_address);
     formData.append("doct_about", doct_about);
-  
-    if (file) {
-      formData.append("file", file);
-    }
-  
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ": " + pair[1]); // Log each key-value pair
-    }
-  
+    if (file) formData.append("file", file);
+
     try {
       const response = await fetch(`http://localhost:8000/admin/editdoctor/${id}`, {
         method: "PUT",
         body: formData,
       });
-  
+
       if (response.ok) {
-        alert("Successfully updated the Doctor!");
-        navigate('/admin/listdoctors');
+        setMessage("✅ Doctor updated successfully");
+        setType("success");
+        setTimeout(() => navigate("/admin/listdoctors"), 2000);
       } else {
         const data = await response.json();
-        alert("Failed to Update Doctor: " + (data.message || "Unknown error"));
+        setMessage(`❌ Failed: ${data.message || "Unknown error"}`);
+        setType("error");
       }
     } catch (error) {
-      console.error("Error updating doctor:", error);
-      alert("An error occurred while updating the doctor!");
+      setMessage("❌ Error updating doctor");
+      setType("error");
     }
   };
-  
+
   return (
     <>
+      {message && <Notifi message={message} onClose={() => setMessage(null)} type={type} />} {/* ✅ Notification */}
+
       <h1>Edit Doctor</h1>
       <div className="edit-doctor-container">
         <form className="doctor-form" onSubmit={updateDoctor}>
+          {/* ...everything else stays the same */}
           {/* Doctor Image */}
           <div className="form-group image-upload">
             <label>Upload Doctor's Image</label>
@@ -116,7 +111,6 @@ function EditDoctor() {
 
           <div className="left-right">
             <div className="form-left">
-              {/* Doctor Name */}
               <div className="form-group">
                 <label>Doctor Name</label>
                 <input
@@ -128,7 +122,6 @@ function EditDoctor() {
                 />
               </div>
 
-              {/* Email */}
               <div className="form-group">
                 <label>Email ID</label>
                 <input
@@ -140,7 +133,6 @@ function EditDoctor() {
                 />
               </div>
 
-              {/* Experience */}
               <div className="form-group">
                 <label>Experience (Years)</label>
                 <select
@@ -156,7 +148,6 @@ function EditDoctor() {
                 </select>
               </div>
 
-              {/* Fees */}
               <div className="form-group">
                 <label>Consultation Fees (₹)</label>
                 <input
@@ -170,7 +161,6 @@ function EditDoctor() {
             </div>
 
             <div className="form-right">
-              {/* Specialist */}
               <div className="form-group">
                 <label>Specialist In</label>
                 <select
@@ -188,7 +178,6 @@ function EditDoctor() {
                 </select>
               </div>
 
-              {/* Degree */}
               <div className="form-group">
                 <label>Degree</label>
                 <input
@@ -200,7 +189,6 @@ function EditDoctor() {
                 />
               </div>
 
-              {/* Phone Number */}
               <div className="form-group">
                 <label>Phone Number</label>
                 <input
@@ -212,7 +200,6 @@ function EditDoctor() {
                 />
               </div>
 
-              {/* Address */}
               <div className="form-group">
                 <label>Address</label>
                 <input
@@ -226,7 +213,6 @@ function EditDoctor() {
             </div>
           </div>
 
-          {/* About Doctor */}
           <div className="form-group">
             <label>About Doctor</label>
             <textarea
@@ -238,7 +224,6 @@ function EditDoctor() {
             ></textarea>
           </div>
 
-          {/* Submit Button */}
           <button type="submit">Update Doctor</button>
         </form>
       </div>

@@ -29,7 +29,7 @@ function Login() {
         console.log(data);
         setUser({ id: data.id, username: data.username });
         setNotifiMessage('✅ Login Successful!'); // ✅ Show success message
-        setTimeout(() => navigate('/'), 2000); // ✅ Redirect after 2s
+        setTimeout(() => navigate('/'), 1000); // ✅ Redirect after 2s
       } else {
         setErrorMessage(data.message || 'Invalid email or password');
         setNotifiMessage('❌ ' + (data.message || 'Login Failed!')); // ✅ Show error notification

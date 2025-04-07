@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Notifi from "../Notification/notifi"; // Notification component
 import './getdoctor.css';
 import Loading from '../Loading/loading';
 
@@ -19,6 +20,7 @@ function GetDoctor() {
   const [doct_about, setDoctAbout] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [notification, setNotification] = useState(null); // NEW: notification state
 
   useEffect(() => {
     async function fetchDoctorData() {
@@ -61,10 +63,17 @@ function GetDoctor() {
         if (!response.ok) {
           throw new Error("Failed to delete the doctor.");
         }
-        alert("Doctor deleted successfully!");
-        navigate("/admin/listdoctors");
+
+        // Success notification
+        setNotification({ message: "Doctor deleted successfully!", type: "success" });
+
+        // Delay navigation until notification is shown
+        setTimeout(() => {
+          navigate("/admin/listdoctors");
+        }, 1000);
       } catch (err) {
-        alert(err.message);
+        // Error notification
+        setNotification({ message: err.message, type: "error" });
       }
     }
   };
@@ -74,6 +83,15 @@ function GetDoctor() {
 
   return (
     <div className="get-doctor-details">
+      {/* Notification */}
+      {notification && (
+        <Notifi
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification(null)}
+        />
+      )}
+
       <h2>Doctor Details</h2>
       <div className="get-doctor-container">
         <div className="get-doctor-info">

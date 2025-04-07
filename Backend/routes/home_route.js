@@ -152,5 +152,20 @@ router.delete('/deleteappoint/:id', async (req, res) => {
   }
 });
 
+router.get('/bookedAppointments/:id', async (req, res) => {
+  try {
+    const doctId = req.params.id;
+    const appointments = await Appointment.find({ doctor_id: doctId }); // ✅ Correct query format
+
+    if (!appointments || appointments.length === 0) {
+      return res.status(404).json({ message: "No appointments found" });
+    }
+
+    res.status(200).json({ message: "Appointments found", appointments });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
 
 module.exports = router;

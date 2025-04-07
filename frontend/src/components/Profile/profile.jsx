@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./profile.css";
 import Loading from "../Loading/loading";
+import Notifi from "../Notification/notifi"; // ✅ Notification import
 
 function Profile() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function Profile() {
   const [patient_dob, setPatient_dob] = useState("");
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [message, setMessage] = useState(null); // ✅ Notification message
 
   useEffect(() => {
     async function fetchUser() {
@@ -23,7 +25,7 @@ function Profile() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token") || ""}`,
+            Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
           },
         });
 
@@ -47,12 +49,12 @@ function Profile() {
     ev.preventDefault();
 
     if (!user) {
-      alert("User data is still loading. Please wait.");
+      setMessage("⚠️ User data is still loading. Please wait.");
       return;
     }
 
     if (!patient_name || !patient_phone || !patient_gender || !patient_address || !patient_dob) {
-      alert("Please fill in all required fields.");
+      setMessage("⚠️ Please fill in all required fields.");
       return;
     }
 
@@ -74,7 +76,7 @@ function Profile() {
       });
 
       if (response.ok) {
-        alert("Patient Profile Created Successfully!");
+        setMessage("✅ Patient Profile Created Successfully!");
         setPatient_name("");
         setPatient_phone("");
         setPatient_gender("");
@@ -82,14 +84,14 @@ function Profile() {
         setPatient_dob("");
         setFile(null);
         setPreview(null);
-        navigate("/");
+        setTimeout(() => navigate("/"), 1000); // Optional: delay redirect to let user read
       } else {
         const data = await response.json();
-        alert(`Failed to create profile: ${data.message || "Unknown error"}`);
+        setMessage(`❌ Failed to create profile: ${data.message || "Unknown error"}`);
       }
     } catch (error) {
       console.error("Error creating profile:", error);
-      alert("Network error! Please check server connection.");
+      setMessage("❌ Network error! Please check server connection.");
     }
   }
 
@@ -106,9 +108,12 @@ function Profile() {
   return (
     <div className="patient-container">
       {isLoading ? (
-        <Loading/>
+        <Loading />
       ) : user ? (
         <>
+          {/* ✅ Show notification */}
+          {message && <Notifi message={message} onClose={() => setMessage(null)} />}
+
           <h2>Patient Profile</h2>
           <form onSubmit={newPatient}>
             <div className="file-input">
