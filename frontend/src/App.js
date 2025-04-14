@@ -16,6 +16,8 @@ import Contact from "./components/Contact/Contact"
 import Doctor from "./components/Doctor/Doctor";
 import PatientAppointment from "./components/Appointments/patientAppoint";
 import Loading from "./components/Loading/loading";
+import PatientReport from "./components/Prescription/patientreport";
+import Payment from "./components/Payment/PaymentModal";
 
 function App() {
   return (
@@ -30,12 +32,15 @@ function App() {
           <Route path="/postprofile" element={<Profile />} />
           <Route path="/profile" element={<GetProfile />} />
           <Route path="/editprofile" element={<EditProfile />} />
-          <Route path="/alldoctors" element={<HomeAllDoc/>} />
+          <Route path="/doctors" element={<HomeAllDoc/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/contact" element={<Contact/>} />
           <Route path="/doctor/:id" element={<Doctor/>} />
           <Route path="/appointments" element={<PatientAppointment/>} />
           <Route path="/load" element={<Loading/>} />
+          <Route path="/patientreport/:id" element={<PatientReport/>} />
+          <Route path="/payment/:id" element={<Payment/>} />
+
         </Routes>
       </Router>
       <Footer/>

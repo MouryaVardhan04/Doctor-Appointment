@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./appoint.css";
 import Loading from "../Loading/loading";
 
@@ -7,6 +8,7 @@ function PatientAppoint() {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [loadingId, setLoadingId] = useState(null); // Track which appointment is being deleted
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchUser() {
@@ -82,6 +84,10 @@ function PatientAppoint() {
     }
   };
 
+  const handlePayment = (appointmentId) => {
+    navigate(`/payment/${appointmentId}`);
+  };
+
   return (
     <div className="appointment-container">
       <h2>My Appointments</h2>
@@ -106,7 +112,7 @@ function PatientAppoint() {
                 <td>{appointment.appointment_date}</td>
                 <td>{appointment.appointment_time}</td>
                 <td>{appointment.appointment_status}</td>
-                <td>{appointment.doct_consultationFees}</td>
+                <td>₹{appointment.doct_consultationFees}</td>
                 <td>
                   <button
                     className="cancelbtn"
@@ -115,7 +121,14 @@ function PatientAppoint() {
                   >
                     {loadingId === appointment.appointment_id ? "Cancelling..." : "Cancel"}
                   </button>
-                  <button className="Paymentbtn">Pay Now</button>
+                  {appointment.appointment_status !== "Paid" && (
+                    <button 
+                      className="Paymentbtn"
+                      onClick={() => handlePayment(appointment.appointment_id)}
+                    >
+                      Pay Now
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

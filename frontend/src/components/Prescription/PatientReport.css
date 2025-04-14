@@ -1,0 +1,182 @@
+.patient-report-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 12px;
+    background-color: #fdfdfd;
+    box-shadow: 5px 5px 15px #dfdfdf,
+                -5px -5px 15px #dfdfdf;
+}
+
+.patient-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.patient-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.patient-form input,
+.patient-form textarea {
+    width: 95%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.dynamic-file-input {
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #fff;
+    margin-bottom: 1rem;
+}
+
+/* Upload Section Styling */
+.preview-section {
+    margin-top: 2rem;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 5px 5px 15px #efefef,
+                -5px -5px 15px #e9e9e9;
+    transition: all 0.3s ease;
+}
+
+.preview-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 8px 8px 20px #efefef,
+                -8px -8px 20px #e9e9e9;
+}
+
+.file-upload-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: #f8f8f8;
+    border: 2px dashed #ff6b6b;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.file-upload-button:hover {
+    background: #fff5f5;
+    border-color: #ff5252;
+}
+
+.file-upload-button span {
+    font-size: 1.2rem;
+    color: #ff6b6b;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.file-upload-button p {
+    color: #888;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.file-upload-button input[type="file"] {
+    display: none;
+}
+
+.file-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.file-preview {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    padding: 1rem;
+    background: #f8f8f8;
+    box-shadow: 3px 3px 8px #efefef,
+                -3px -3px 8px #ffffff;
+    transition: all 0.3s ease;
+}
+
+.file-preview:hover {
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 10px #efefef,
+                -5px -5px 10px #ffffff;
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 120px;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.pdf-preview {
+    font-size: 0.95rem;
+    background: #f8f8f8;
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    word-break: break-word;
+    box-shadow: inset 1px 1px 3px #efefef,
+                inset -1px -1px 3px #ffffff;
+}
+
+.remove-button {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.remove-button:hover {
+    background: #ff5252;
+    transform: scale(1.1);
+}
+
+.submit-button {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 5px rgba(255, 107, 107, 0.2);
+}
+
+.submit-button:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 8px rgba(255, 107, 107, 0.3);
+}
+  

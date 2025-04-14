@@ -13,6 +13,7 @@ function Navbar() {
   const [id, setId] = useState("");
   const [message, setMessage] = useState(null);
   const dropdownRef = useRef();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     async function fetchUser() {
@@ -82,7 +83,6 @@ function Navbar() {
     }
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -93,72 +93,127 @@ function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  return (
-    <header className="header-width">
-      <nav className="grid">
-        <img src={logo} alt="Logo" className="logo" />
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
-        <div className="navbar">
-          <ul>
-            <li><NavLink to="/">HOME</NavLink></li>
-            <li><NavLink to="/alldoctors">ALL DOCTORS</NavLink></li>
-            <li><NavLink to="/about">ABOUT</NavLink></li>
-            <li><NavLink to="/contact">CONTACT</NavLink></li>
-          </ul>
+  return (
+    <div className="header-width">
+      <div className="grid">
+        <div className="logo">
+          <Link to="/">
+            <img src={logo} alt="Logo" style={{ height: '50px' }} />
+          </Link>
         </div>
 
-        {!user ? (
-          <button className="create-acc">
-            <Link to="/register">Create Account</Link>
-          </button>
-        ) : (
-          <div className="profile-dropdown" ref={dropdownRef}>
-            <button
-              className="profile-btn"
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-            >
-              <img
-                src={profileImage}
-                alt="Profile"
-                className="nav-profile-thumb"
-                style={{
-                  width: "35px",
-                  height: "35px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  marginRight: "8px",
-                  border:"1px solid white"
-                }}
-              />
-              {user.username}
+        <nav className="navbar">
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/doctors">Doctors</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+          </ul>
+        </nav>
+
+        <div className="auth-section">
+          {user ? (
+            <div className="profile-dropdown" ref={dropdownRef}>
+              <button
+                className="profile-btn"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                <div className="profimg">
+                  <img
+                    src={profileImage}
+                    alt="Profile"
+                    className="profile-image"
+                    style={{
+                      width: "35px",
+                      height: "35px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      marginRight: "8px",
+                      border:"1px solid white"
+                    }}
+                  />
+                </div>
+                <span>{user.username}</span>
+              </button>
+
+              {dropdownOpen && (
+                <ul className="dropdown-menu">
+                  <li>
+                    <div className="profile">
+                    <Link to="/profile">
+                      Profile
+                    </Link>
+                    </div>
+                  </li>
+                  <li>
+                    <Link to="/appointments">Appointments</Link>
+                  </li>
+                  <li>
+                    <button onClick={handleLogout} className="logout-button">
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              )}
+            </div>
+          ) : (
+            <button className="create-acc">
+              <Link to="/login">Create Account</Link>
             </button>
+          )}
+        </div>
 
-            {dropdownOpen && (
-              <ul className="dropdown-menu">
-                <li>
-                  <div className="profile">
-                  <Link to="/profile">
-                    Profile
-                  </Link>
-                  </div>
+        <button 
+          className={`mobile-menu-btn ${isMobileMenuOpen ? 'active' : ''}`} 
+          onClick={toggleMobileMenu}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
 
-                </li>
-                <li>
-                  <Link to="/appointments">Appointments</Link>
-                </li>
-                <li>
-                  <button onClick={handleLogout} className="logout-button">
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            )}
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+        <div className="mobile-menu-header">
+          <div className="logo">
+            <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
+              <img src={logo} alt="Logo" style={{ height: '40px' }} />
+            </Link>
           </div>
-        )}
-      </nav>
+          <button className="close-btn" onClick={toggleMobileMenu}>
+            ×
+          </button>
+        </div>
+
+        <div className="mobile-menu-content">
+          <nav className="navbar">
+            <ul>
+              <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
+              <li><Link to="/doctors" onClick={() => setIsMobileMenuOpen(false)}>Doctors</Link></li>
+              <li><Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>About</Link></li>
+              <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link></li>
+              {user ? (
+
+        <ul>
+  <li><Link to="/profile" onClick={() => setIsMobileMenuOpen(false)}>Profile</Link></li>
+  <li><button className="logout-button" onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}>Logout</button></li>
+</ul>
+) : (
+<button className="create-acc">
+<Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>Create Account</Link>
+</button>
+)}
+            </ul>
+          </nav>
+        </div>
+      </div>
       <hr />
       {message && <Notifi message={message} onClose={() => setMessage(null)} />}
-    </header>
+    </div>
   );
 }
 

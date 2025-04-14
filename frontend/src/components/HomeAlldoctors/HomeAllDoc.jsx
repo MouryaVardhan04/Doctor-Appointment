@@ -33,51 +33,49 @@ function HomeAllDoc() {
     : doctors;
 
   return (
-    <div>
-      <p>Browse through the doctors specialist.</p>
-      <div className="alldoctor-containar">
-        <div className="left-filter">
-          <div className="images">
-            {[
-              { label: "General Physician", key: "General Physician" },
-              { label: "Gynecologist", key: "Gynecologist" },
-              { label: "Dermatologist", key: "Dermatologist" },
-              { label: "Pediatricians", key: "Pediatricians" },
-              { label: "Neurologist", key: "Neurologist" },
-              { label: "Gastroenterologist", key: "Gastroenterologist" },
-            ].map(({ label, key }) => (
-              <div
-                key={key}
-                className={`speciality-items ${selectedSpecialist === key ? "selected" : ""}`}
-                onClick={() => handleFilterChange(key)}
-              >
-                <div className="label">
-                  <p>{label}</p>
-                </div>
+    <div className="doctors-list-container">
+      <div className="filter-section">
+        <h3 className="filter-title">Specializations</h3>
+        <div className="specialty-filter">
+          {[
+            { label: "General Physician", key: "General Physician" },
+            { label: "Gynecologist", key: "Gynecologist" },
+            { label: "Dermatologist", key: "Dermatologist" },
+            { label: "Pediatricians", key: "Pediatricians" },
+            { label: "Neurologist", key: "Neurologist" },
+            { label: "Gastroenterologist", key: "Gastroenterologist" },
+          ].map(({ label, key }) => (
+            <div
+              key={key}
+              className={`filter-item ${selectedSpecialist === key ? "selected" : ""}`}
+              onClick={() => handleFilterChange(key)}
+            >
+              {label}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="doctors-grid">
+        {loading ? (
+          <Loading />
+        ) : filteredDoctors.length > 0 ? (
+          filteredDoctors.map((doctor) => (
+            <Link to={`/doctor/${doctor._id}`} key={doctor._id} className="doctor-card">
+              <div className="doctor-image">
+                <img
+                  src={doctor.file ? `http://localhost:8000/uploads/${doctor.file}` : "/default-doctor.png"}
+                  alt={doctor.doct_name}
+                />
               </div>
-            ))}
-          </div>
-        </div>
-        <div className="Box1">
-          {loading ? (
-            <Loading/>
-          ) : filteredDoctors.length > 0 ? (
-            filteredDoctors.map((doctor) => (
-              <Link to={`/doctor/${doctor._id}`} key={doctor._id} className="doctor-container">
-                <div className="imgContainer">
-                  <img
-                    src={doctor.file ? `http://localhost:8000/uploads/${doctor.file}` : "/default-doctor.png"}
-                    alt={doctor.doct_name}
-                  />
-                </div>
-                <h2>{doctor.doct_name}</h2>
-                <p>{doctor.doct_specialization}</p>
-              </Link>
-            ))
-          ) : (
-            <p className="no-doctors">No doctors found for this specialization.</p>
-          )}
-        </div>
+              <h3 className="doctor-name">{doctor.doct_name}</h3>
+              <p className="doctor-specialty">{doctor.doct_specialization}</p>
+              <p className="doctor-specialty">₹{doctor.doct_consultationFees} Consultation Fee</p>
+            </Link>
+          ))
+        ) : (
+          <p className="no-doctors">No doctors found for this specialization.</p>
+        )}
       </div>
     </div>
   );

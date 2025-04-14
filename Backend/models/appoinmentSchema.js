@@ -23,6 +23,11 @@ const AppointmentSchema = new mongoose.Schema({
     type: String,
     enum: ["Accepted", "Rejected"],
     default: "Accepted"
+  },  
+  payment_status: {
+    type: String,
+    enum: ["Pending", "Paid"],
+    default: "Pending"
   }
 }, { timestamps: true });  // Adds createdAt & updatedAt automatically
 

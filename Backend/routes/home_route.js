@@ -4,6 +4,10 @@ const Doctor = require('../models/doctorSchema'); // Import Doctor Schema
 const Appointment = require("../models/appoinmentSchema");
 const Patient = require("../models/patientSchema");
 const nodemailer = require("nodemailer");
+const PatientProblem = require("../models/patProblem");
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 // Configure Nodemailer Transporter
 const transporter = nodemailer.createTransport({
@@ -14,6 +18,34 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+// Create uploads directory if it doesn't exist
+const uploadDir = 'uploads/patient_reports';
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ 
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  fileFilter: function (req, file, cb) {
+    const filetypes = /jpeg|jpg|png|pdf/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    if (extname) {
+      return cb(null, true);
+    }
+    cb(new Error('Only .png, .jpg, .jpeg and .pdf files are allowed!'));
+  }
+});
 
 // Get Doctor by ID
 router.get('/getdoctor/:id', async (req, res) => {
@@ -69,7 +101,8 @@ router.get('/alldoctors', async (req, res) => {
         appoinment_time,
       });
   
-      await newAppointment.save();
+      const savedAppointment = await newAppointment.save();
+  
       // Fetch patient and doctor details
       const patient = await Patient.findOne({ patient_userId: patient_userId });
       
@@ -91,9 +124,15 @@ router.get('/alldoctors', async (req, res) => {
       transporter.sendMail(mailOptions, (err, info) => {
         if (err) {
           console.error("Error sending email:", err);
-          return res.status(500).json({ message: "Appointment booked, but email not sent." });
+          return res.status(500).json({ 
+            message: "Appointment booked, but email not sent.",
+            appointmentId: savedAppointment._id 
+          });
         } else {
-          return res.status(201).json({ message: "Appointment booked successfully and email sent!" });
+          return res.status(201).json({ 
+            message: "Appointment booked successfully and email sent!",
+            appointmentId: savedAppointment._id 
+          });
         }
       });
   
@@ -155,17 +194,50 @@ router.delete('/deleteappoint/:id', async (req, res) => {
 router.get('/bookedAppointments/:id', async (req, res) => {
   try {
     const doctId = req.params.id;
-    const appointments = await Appointment.find({ doctor_id: doctId }); // ✅ Correct query format
+    const appointments = await Appointment.find({ 
+      doctor_id: doctId,
+      appoinment_status: { $ne: 'cancelled' } // Only get active appointments
+    });
 
     if (!appointments || appointments.length === 0) {
-      return res.status(404).json({ message: "No appointments found" });
+      return res.status(200).json({ appointments: [] }); // Return empty array if no appointments
     }
 
-    res.status(200).json({ message: "Appointments found", appointments });
+    res.status(200).json({ appointments });
   } catch (error) {
+    console.error("Error fetching booked appointments:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
+
+router.post("/addpatientreport/:id", upload.array('reports', 5), async (req, res) => {
+  const appointmentId = req.params.id;
+  try {
+    const { problem_description } = req.body;
+    const files = req.files ? req.files.map(file => ({
+      filename: file.filename,
+      path: file.path,
+      mimetype: file.mimetype,
+      size: file.size
+    })) : [];
+
+    const patientProblem = new PatientProblem({
+      appointmentId,
+      problem_description,
+      reports: files
+    });
+
+    await patientProblem.save();
+    res.status(201).json({ 
+      message: 'Patient Problem Report Added Successfully',
+      appointmentId 
+    });
+  } catch (error) {
+    console.error('Error adding patient report:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 
 
 module.exports = router;

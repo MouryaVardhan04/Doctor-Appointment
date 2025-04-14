@@ -27,7 +27,8 @@ function Doctor() {
   const [times, setTimes] = useState([]);
   const [message, setMessage] = useState(null);
   const [type, setType] = useState("success");
-  const [bookingLoading, setBookingLoading] = useState(false); // ✅ Booking state
+  const [bookingLoading, setBookingLoading] = useState(false);
+  const [bookedSlots, setBookedSlots] = useState([]);
 
   useEffect(() => {
     async function fetchDoctorData() {
@@ -118,6 +119,28 @@ function Doctor() {
     generateTimeSlots();
   }, []);
 
+  useEffect(() => {
+    const fetchBookedSlots = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/home/bookedAppointments/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setBookedSlots(data.appointments || []);
+        }
+      } catch (error) {
+        console.error("Error fetching booked slots:", error);
+      }
+    };
+
+    fetchBookedSlots();
+  }, [id]);
+
+  const isSlotBooked = (date, time) => {
+    return bookedSlots.some(
+      (slot) => slot.appoinment_date === date && slot.appoinment_time === time
+    );
+  };
+
   const bookAppointment = async (e) => {
     e.preventDefault();
 
@@ -139,7 +162,7 @@ function Doctor() {
       return;
     }
 
-    setBookingLoading(true); // ⏳ Show loading
+    setBookingLoading(true);
 
     try {
       const response = await fetch("http://localhost:8000/home/appointments", {
@@ -156,11 +179,53 @@ function Doctor() {
 
       setMessage("✅ Appointment booked successfully!");
       setType("success");
+
+      // Refresh booked slots after successful booking
+      const slotsResponse = await fetch(`http://localhost:8000/home/bookedAppointments/${id}`);
+      if (slotsResponse.ok) {
+        const slotsData = await slotsResponse.json();
+        setBookedSlots(slotsData.appointments || []);
+      }
+
+      // Navigate to patient report page with the appointment ID
+      if (data.appointmentId) {
+        navigate(`/patientreport/${data.appointmentId}`);
+      } else {
+        throw new Error("Appointment ID not received");
+      }
+
     } catch (err) {
       setMessage(`❌ ${err.message}`);
       setType("error");
     } finally {
-      setBookingLoading(false); // ✅ Hide loading
+      setBookingLoading(false);
+    }
+  };
+
+  const submitPatientProblem = async (appointmentId, problemDescription, files) => {
+    try {
+      const formData = new FormData();
+      formData.append('problem_description', problemDescription);
+      files.forEach(file => {
+        formData.append('reports', file);
+      });
+
+      const response = await fetch(`http://localhost:8000/home/addpatientreport/${appointmentId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Failed to submit problem');
+
+      setMessage('✅ Problem report submitted successfully!');
+      setType('success');
+    } catch (err) {
+      setMessage(`❌ ${err.message}`);
+      setType('error');
     }
   };
 
@@ -171,9 +236,9 @@ function Doctor() {
     <>
       {message && <Notifi message={message} onClose={() => setMessage(null)} type={type} />}
       {bookingLoading && (
-  <div className="booking-loading">
-    <span className="pulse-text">⏳ Please wait ...</span>
-  </div>
+        <div className="booking-loading">
+          <span className="pulse-text">⏳ Please wait ...</span>
+        </div>
       )}
       <div className="Doctor">
         <div className="get-doctor-details">
@@ -212,28 +277,34 @@ function Doctor() {
               <li
                 key={index}
                 className={`date-box ${selectedDate === date ? "selected" : ""}`}
-                onClick={() => setSelectedDate(date)}
+                onClick={() => {
+                  setSelectedDate(date);
+                  setSelectedTime(null); // Reset time when date changes
+                }}
               >
                 {date}
               </li>
             ))}
           </div>
           <div className="time">
-            {times.map((time, index) => (
-              <li
-                key={index}
-                className={`time-box ${selectedTime === time ? "selected" : ""}`}
-                onClick={() => setSelectedTime(time)}
-              >
-                {time}
-              </li>
-            ))}
+            {times.map((time, index) => {
+              const isBooked = selectedDate ? isSlotBooked(selectedDate, time) : false;
+              return !isBooked ? (
+                <li
+                  key={index}
+                  className={`time-box ${selectedTime === time ? "selected" : ""}`}
+                  onClick={() => setSelectedTime(time)}
+                >
+                  {time}
+                </li>
+              ) : null;
+            })}
           </div>
         </div>
 
         <div className="book-app">
           <button onClick={bookAppointment} disabled={bookingLoading}>
-             Book Appointment
+            Book Appointment
           </button>
         </div>
       </div>
