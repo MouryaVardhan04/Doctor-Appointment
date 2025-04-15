@@ -153,6 +153,9 @@ function Navbar() {
                     <Link to="/appointments">Appointments</Link>
                   </li>
                   <li>
+                    <Link to="/getAllPrescription">Prescriptions</Link>
+                  </li>
+                  <li>
                     <button onClick={handleLogout} className="logout-button">
                       Logout
                     </button>

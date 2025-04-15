@@ -28,13 +28,37 @@
   text-align: center;
   padding: 10px;
   border-radius: 8px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.speciality-item:hover {
+  transform: translateY(-5px);
+}
+
+.speciality-item.selected {
+  background-color: white;
+  transform: translateY(-5px);
+  color: rgb(171, 19, 19);
 }
 
 .speciality-item img {
   width: 80px;
   height: 80px;
   object-fit: contain;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.speciality-item:hover img {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.speciality-item.selected img {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(171, 19, 19, 0.3);
 }
 
 .speciality-item p {
@@ -42,6 +66,7 @@
   font-size: 14px;
   font-weight: bold;
 }
+
 
 
 .box1 {

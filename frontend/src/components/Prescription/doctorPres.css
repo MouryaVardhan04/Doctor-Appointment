@@ -1,0 +1,585 @@
+.prescription-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 3rem;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.prescription-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #6c5ce7, #a29bfe, #6c5ce7);
+  background-size: 200% 100%;
+  animation: gradientMove 3s linear infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.prescription-container h2 {
+  text-align: center;
+  color: #2d3436;
+  margin-bottom: 2.5rem;
+  font-size: 2.5rem;
+  position: relative;
+  padding-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.prescription-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 4px;
+  background: linear-gradient(to right, #6c5ce7, #a29bfe);
+  border-radius: 2px;
+}
+
+.prescription-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #2d3436;
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 1.2rem 1.5rem;
+  border: 2px solid #dfe6e9;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+.form-group textarea{
+    width: 90;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #6c5ce7;
+  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+  transform: translateY(-2px);
+}
+
+.form-row {
+  display: flex;
+  gap: 2rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.medications-section {
+  background: #f8f9fa;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.medications-section::before {
+  content: '💊';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  opacity: 0.1;
+}
+
+.medications-section h3 {
+  color: #2d3436;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  position: relative;
+  z-index: 1;
+}
+
+.medication-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.medication-row::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #6c5ce7, #a29bfe);
+}
+
+.medication-row:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.medication-row .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.medication-row .form-group label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.medication-row .form-group input,
+.medication-row .form-group select {
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  height: auto;
+}
+
+.timing-group {
+  flex: 1;
+  min-width: 120px;
+}
+
+.timing-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.timing-option {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #dfe6e9;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #fff;
+  flex: 1;
+  justify-content: center;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.timing-option input[type="radio"] {
+  display: none;
+}
+
+.timing-option.active {
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  color: white;
+  border-color: #6c5ce7;
+  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+}
+
+.timing-option:hover {
+  border-color: #6c5ce7;
+  transform: translateY(-2px);
+}
+
+.timing-option svg {
+  font-size: 1.4rem;
+}
+
+.add-btn,
+.remove-btn,
+.submit-btn {
+  padding: 1.2rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.add-btn {
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  color: white;
+  align-self: flex-start;
+  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+}
+
+.remove-btn {
+  background: linear-gradient(135deg, #ff4757, #ff6b81);
+  color: white;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #00b894, #55efc4);
+  color: white;
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  width: auto;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #00a884, #45dbc0);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 184, 148, 0.3);
+}
+
+/* Styles for the button when disabled (no need for .loading specific style anymore) */
+.submit-btn:disabled {
+  background: linear-gradient(135deg, #a0e6d6, #70d3b9); /* Muted gradient */
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); /* Reset shadow */
+  transform: none; /* Remove hover transform */
+}
+
+/* Adjust hover/active to only exclude disabled */
+.add-btn:hover,
+.remove-btn:hover,
+.submit-btn:hover:not(:disabled) { 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.add-btn:active,
+.remove-btn:active,
+.submit-btn:active:not(:disabled) { 
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .prescription-container {
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 15px;
+  }
+
+  .prescription-container h2 {
+    font-size: 2rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .medication-row {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.2rem;
+  }
+
+  .medication-row .form-group {
+    width: 100%;
+  }
+
+  .timing-options {
+    flex-direction: column;
+  }
+
+  .timing-option {
+    width: 100%;
+  }
+
+  .remove-btn {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  .add-btn,
+  .submit-btn {
+    width: 100%;
+  }
+}
+
+/* Loading Animation */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Success Message */
+.success-message {
+  background: linear-gradient(135deg, #00b894, #55efc4);
+  color: white;
+  padding: 1.2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 1.5rem;
+  animation: slideIn 0.5s ease-out;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.details-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.details-section h3 {
+  color: #2d3436;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #636e72;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detail-value {
+  color: #2d3436;
+  font-size: 1.1rem;
+}
+
+.patient-details {
+  border-left: 4px solid #6c5ce7;
+}
+
+.doctor-details {
+  border-left: 4px solid #00b894;
+}
+
+.appointment-details {
+  border-left: 4px solid #fd79a8;
+}
+
+/* Loading and Error States */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #6c5ce7;
+  font-size: 1.2rem;
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: #ff4757;
+  font-size: 1.2rem;
+  background: #ffe0e3;
+  border-radius: 12px;
+  margin: 2rem;
+}
+
+/* Styles for Details Tables */
+.details-table {
+  width: 100%;
+  margin-bottom: 2rem;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden; /* Ensures border-radius clips content */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.details-table th,
+.details-table td {
+  padding: 1rem 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+}
+
+.details-table th {
+  width: 30%; /* Adjust width for label column */
+  font-weight: 600;
+  color: #636e72;
+  background-color: #f8f9fa; /* Light background for labels */
+}
+
+.details-table td {
+  color: #2d3436;
+}
+
+.details-table tr:last-child th,
+.details-table tr:last-child td {
+  border-bottom: none; /* Remove border from last row */
+}
+
+/* Header for tables */
+.prescription-container h3 {
+  color: #2d3436;
+  margin-top: 2rem; /* Add space above table titles */
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* Divider between details and form */
+.section-divider {
+  border: none;
+  border-top: 2px dashed #dfe6e9;
+  margin: 3rem 0;
+}
+
+/* Styles for Two-Column Details Layout */
+.details-layout {
+    display: flex;
+    gap: 2rem; /* Space between columns */
+    margin-bottom: 2rem; /* Space before the divider */
+}
+
+.details-column-left {
+    flex: 1.2; /* Give patient column slightly more space */
+}
+
+.details-column-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Adjust table margin within columns */
+.details-column-left .details-table,
+.details-column-right .details-table {
+    margin-bottom: 0; /* Remove bottom margin as gap is handled by column */
+}
+
+/* Responsive adjustments for the two-column layout */
+@media (max-width: 900px) { /* Adjust breakpoint as needed */
+    .details-layout {
+        flex-direction: column;
+        gap: 0; /* Remove gap when stacked */
+    }
+
+    .details-column-left,
+    .details-column-right {
+        flex: none; /* Reset flex basis */
+        width: 100%;
+    }
+
+    /* Add back margin between tables when stacked */
+    .details-column-left .details-table {
+         margin-bottom: 2rem;
+    }
+    .details-column-right .details-table:first-child {
+         margin-bottom: 2rem;
+    } 
+}
+
+/* Submission Message Popup */
+.submission-message-popup {
+    position: absolute; /* Position relative to the container */
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(108, 92, 231, 0.9); /* Use primary color with opacity */
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    z-index: 100; /* Ensure it's above other content */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-out;
+    /* Add a simple loading indicator if desired */
+    /* E.g., using pseudo-element */
+    /* display: flex; */
+    /* align-items: center; */
+    /* gap: 0.5rem; */
+}
+
+/* Optional: add a spinner or dots using pseudo-elements */
+/* 
+.submission-message-popup::after {
+    content: '...'; 
+    display: inline-block;
+    animation: dots 1.5s infinite steps(3, end);
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60% { content: '...'; }
+}
+*/

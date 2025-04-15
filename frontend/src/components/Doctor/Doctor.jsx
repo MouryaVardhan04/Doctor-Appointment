@@ -92,7 +92,7 @@ function Doctor() {
         const formattedDate = futureDate.toLocaleDateString("en-US", {
           weekday: "short",
           day: "numeric",
-          month: "short",
+          month: "short"
         });
         nextFiveDays.push(formattedDate);
       }
@@ -134,6 +134,11 @@ function Doctor() {
 
     fetchBookedSlots();
   }, [id]);
+
+  const handleDateSelect = (dateObj) => {
+    setSelectedDate(dateObj.fullDate);
+    setSelectedTime(null);
+  };
 
   const isSlotBooked = (date, time) => {
     return bookedSlots.some(
@@ -279,7 +284,7 @@ function Doctor() {
                 className={`date-box ${selectedDate === date ? "selected" : ""}`}
                 onClick={() => {
                   setSelectedDate(date);
-                  setSelectedTime(null); // Reset time when date changes
+                  setSelectedTime(null);
                 }}
               >
                 {date}

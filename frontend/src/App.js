@@ -18,7 +18,10 @@ import PatientAppointment from "./components/Appointments/patientAppoint";
 import Loading from "./components/Loading/loading";
 import PatientReport from "./components/Prescription/patientreport";
 import Payment from "./components/Payment/PaymentModal";
-
+import GetPatientReport from "./components/Prescription/getPatientReport";
+import DoctorPres from "./components/Prescription/doctorPres";
+import GetDoctPres from "./components/Prescription/getDoctPres";
+import GetAllPrescription from "./components/Prescription/getAllPrescription";
 function App() {
   return (
     <UserProvider>
@@ -40,6 +43,11 @@ function App() {
           <Route path="/load" element={<Loading/>} />
           <Route path="/patientreport/:id" element={<PatientReport/>} />
           <Route path="/payment/:id" element={<Payment/>} />
+          <Route path="/getPatientReports/:id" element={<GetPatientReport/>} />
+          <Route path="/doctorPrescription/:id" element={<doctorPres/>} />
+          <Route path="/postDoctPres/:id" element={<DoctorPres/>} />
+          <Route path="/getDoctPres/:id" element={<GetDoctPres/>} />
+          <Route path="/getAllPrescription" element={<GetAllPrescription/>} />
 
         </Routes>
       </Router>

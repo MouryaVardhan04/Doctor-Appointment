@@ -5,6 +5,7 @@ const Appointment = require("../models/appoinmentSchema");
 const Patient = require("../models/patientSchema");
 const nodemailer = require("nodemailer");
 const PatientProblem = require("../models/patProblem");
+const DoctorPrescription = require("../models/doctPres");
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -13,8 +14,8 @@ const fs = require('fs');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-      user: 'bcs_2023015@iiitm.ac.in',
-      pass: '2023BCS015'
+      user: 'img_2023028@iiitm.ac.in',
+      pass: 'Vi@27052004'
   }
 });
 
@@ -101,8 +102,7 @@ router.get('/alldoctors', async (req, res) => {
         appoinment_time,
       });
   
-      const savedAppointment = await newAppointment.save();
-  
+      await newAppointment.save();
       // Fetch patient and doctor details
       const patient = await Patient.findOne({ patient_userId: patient_userId });
       
@@ -115,23 +115,82 @@ router.get('/alldoctors', async (req, res) => {
 
       // Send email confirmation
       const mailOptions = {
-        from: "bcs_2023015@iiitm.ac.in",
-        to: patient.patient_email, // Assuming patient schema has an email field
-        subject: "Appointment Confirmation",
-        text: `Dear ${patient.patient_name},\n\nYour appointment with Dr. ${doctor.doct_name} (${doctor.doct_specialization}) has been successfully booked.\n\nDate: ${appoinment_date}\nTime: ${appoinment_time}\n\nThank you!`
+        from: process.env.EMAIL_USER || "bcs_2023015@iiitm.ac.in", // Use configured email/env var
+        to: patient.patient_email, 
+        subject: "✅ Your Appointment is Confirmed!",
+        // Plain text version (fallback)
+        text: 
+`Hi ${patient.patient_name},
+
+Great news! Your appointment is confirmed.
+
+Here are the details:
+
+Doctor: Dr. ${doctor.doct_name}
+Specialization: ${doctor.doct_specialization}
+Date: ${appoinment_date}
+Time: ${appoinment_time}
+
+Clinic: [Your Clinic Name] - [Optional Clinic Address/Phone]
+
+We look forward to seeing you!
+
+If you need to reschedule or have any questions, please contact us at [Your Contact Info].
+
+Best regards,
+[Your Clinic/Platform Name] Team`,
+        // HTML version for better formatting
+        html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+          <h2 style="color: #2e8b57;">Appointment Confirmed!</h2>
+          <p>Hi ${patient.patient_name},</p>
+          <p>Great news! Your appointment with <strong>Dr. ${doctor.doct_name}</strong> has been successfully booked.</p>
+          <hr style="border: none; border-top: 1px solid #eee;">
+          <h3 style="color: #333;">Appointment Details:</h3>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; width: 120px;"><strong>Doctor:</strong></td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">Dr. ${doctor.doct_name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Specialization:</strong></td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${doctor.doct_specialization}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Date:</strong></td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${appoinment_date}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Time:</strong></td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${appoinment_time}</td>
+            </tr>
+             <tr>
+              <td style="padding: 8px;"><strong>Clinic:</strong></td>
+              <td style="padding: 8px;">[Docubook] - [IIIT Gwalior/9381340810]</td>
+            </tr>
+          </table>
+          <hr style="border: none; border-top: 1px solid #eee;">
+          <p>We look forward to seeing you!</p>
+          <p>If you need to reschedule or have any questions, please don't hesitate to contact us at <a href="mailto:[bcs_2023015@iiitm.ac.in]">[bcs_2023015@iiitm.ac.in]</a> or call us at [9381340810].</p>
+          <br>
+          <p>Best regards,</p>
+          <p><strong>The [Docubook] Team</strong></p>
+        </div>
+        `
       };
   
       transporter.sendMail(mailOptions, (err, info) => {
         if (err) {
           console.error("Error sending email:", err);
-          return res.status(500).json({ 
-            message: "Appointment booked, but email not sent.",
-            appointmentId: savedAppointment._id 
+          // Still return success with appointment ID even if email fails
+          return res.status(201).json({ 
+            message: "Appointment booked successfully!",
+            appointmentId: newAppointment._id
           });
         } else {
           return res.status(201).json({ 
             message: "Appointment booked successfully and email sent!",
-            appointmentId: savedAppointment._id 
+            appointmentId: newAppointment._id
           });
         }
       });
@@ -141,7 +200,6 @@ router.get('/alldoctors', async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   });
-  
   
   router.get("/displayappoint/:id", async (req, res) => {
     try {
@@ -186,6 +244,21 @@ router.delete('/deleteappoint/:id', async (req, res) => {
     }
 
     res.status(200).json({ message: "Appointment deleted successfully", appointment });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+router.get('/getappointment/:id', async (req, res) => {
+  try {
+    const appoint_id = req.params.id;
+    const appointment = await Appointment.findById(appoint_id);
+
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    res.status(200).json({ message: "Appointment fetched successfully", appointment });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
@@ -238,6 +311,35 @@ router.post("/addpatientreport/:id", upload.array('reports', 5), async (req, res
   }
 });
 
+router.get("/getDoctPres/:patientUserId", async (req, res) => {
+  try {
+    const patientUserId = req.params.patientUserId;
+
+    // 1. Find all appointments for the given patient user ID
+    const appointments = await Appointment.find({ patient_userId: patientUserId });
+
+    if (!appointments || appointments.length === 0) {
+      // If no appointments, the patient has no prescriptions via this app
+      return res.status(200).json({ doctorPrescriptions: [] }); 
+    }
+
+    // 2. Extract appointment IDs
+    const appointmentIds = appointments.map(app => app._id);
+
+    // 3. Find all prescriptions linked to these appointment IDs
+    const doctorPrescriptions = await DoctorPrescription.find({ 
+      appointmentId: { $in: appointmentIds } 
+    }).sort({ createdAt: -1 }); // Sort by creation date, newest first
+
+    // 4. Return the found prescriptions
+    res.status(200).json({ doctorPrescriptions });
+
+  } catch (error) {
+    console.error("Error fetching patient prescriptions:", error);
+    res.status(500).json({ message: "Server error while fetching prescriptions" });
+  }
+});
 
 
 module.exports = router;
+

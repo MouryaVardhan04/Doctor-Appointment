@@ -1,0 +1,227 @@
+/* Container for the whole page */
+.get-prescription-container {
+    max-width: 850px; /* Slightly wider */
+    margin: 3rem auto;
+    padding: 2.5rem; /* Increased padding */
+    background-color: #f4f7f6; /* Softer background */
+    border-radius: 12px; /* Smoother radius */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Softer shadow */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+}
+
+/* Content area that will be downloaded */
+.prescription-content {
+    padding: 3rem; /* More internal padding */
+    border: 1px solid #e0e0e0; /* Lighter border */
+    background-color: #fff;
+    margin-bottom: 2.5rem; /* Increased space */
+    color: #444; /* Slightly lighter text */
+    border-radius: 8px; /* Match container */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+}
+
+.prescription-content h2 {
+    text-align: center;
+    font-size: 2rem; /* Larger title */
+    margin-bottom: 1.5rem;
+    color: #2c3e50; /* Dark blue-grey */
+    border-bottom: 3px solid #3498db; /* Accent color border */
+    padding-bottom: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.pres-header-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    color: #555;
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.pres-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #f0f0f0; /* Very light separator */
+}
+
+.pres-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.pres-section h3 {
+    font-size: 1.3rem; /* Slightly larger section titles */
+    font-weight: 600;
+    color: #34495e; /* Darker blue-grey */
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.pres-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 1rem 2rem; 
+    font-size: 1rem;
+    color: #555;
+}
+
+.pres-grid div {
+    line-height: 1.6;
+    padding: 0.3rem 0; /* Add slight vertical padding */
+}
+
+.pres-grid strong {
+    font-weight: 600;
+    color: #333;
+    margin-right: 8px;
+}
+
+.grid-col-span-2 {
+    grid-column: span 2;
+}
+
+.pres-section p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-top: 0.8rem;
+    color: #555;
+}
+
+.pres-divider {
+    border: none;
+    border-top: 1px dashed #ccc;
+    margin: 2.5rem 0;
+}
+
+/* Medications Table Styling */
+.medications-table-pres {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.2rem;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    border-radius: 6px;
+    overflow: hidden; /* Clip shadow within border radius */
+}
+
+.medications-table-pres th,
+.medications-table-pres td {
+    border: 1px solid #e8e8e8;
+    padding: 0.8rem 1rem;
+    text-align: left;
+    vertical-align: middle; /* Better alignment */
+}
+
+.medications-table-pres th {
+    background-color: #ecf0f1; /* Light grey-blue */
+    font-weight: 600;
+    color: #34495e;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.medications-table-pres tbody tr:nth-child(even) {
+    background-color: #fdfdfd; /* Subtle striping */
+}
+
+.medications-table-pres tbody tr:hover {
+    background-color: #f5f5f5; /* Hover effect */
+}
+
+/* Download Button Area */
+.download-button-area {
+    text-align: center;
+    margin-top: 1rem; /* Reduced margin from content */
+}
+
+.download-btn {
+    background: linear-gradient(135deg, #3498db, #2980b9); /* Blue gradient */
+    color: white;
+    border: none;
+    padding: 0.9rem 1.8rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    background: linear-gradient(135deg, #2980b9, #3498db);
+}
+
+.download-btn:active {
+     transform: translateY(0);
+     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+/* Loading/Error/Not Found States */
+.loading-pres,
+.error-pres,
+.not-found-pres {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.15rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.loading-pres {
+    color: #1f6f8b;
+    background-color: #e1f5fe;
+    border: 1px solid #b3e5fc;
+}
+
+.error-pres {
+    color: #c0392b;
+    background-color: #fdedec;
+    border: 1px solid #f5b7b1;
+}
+
+.not-found-pres {
+    color: #d35400;
+    background-color: #fff8e1;
+    border: 1px solid #ffecb3;
+}
+
+/* Library Installation Note */
+.library-note {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+.library-note strong {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.library-note pre {
+    background-color: #fff;
+    padding: 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.5rem;
+    font-family: monospace;
+    overflow-x: auto;
+}

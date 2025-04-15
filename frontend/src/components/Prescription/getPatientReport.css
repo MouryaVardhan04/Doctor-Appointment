@@ -1,0 +1,326 @@
+/* Variables for consistent styling */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --text-color: #2c3e50;
+  --light-gray: #ecf0f1;
+  --white: #ffffff;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
+}
+
+/* Main container styling */
+.patient-report-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header section */
+.patient-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: var(--border-radius);
+  color: var(--white);
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.patient-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="rgba(255,255,255,0.1)" d="M0 0h100v100H0z"/></svg>');
+  opacity: 0.1;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--white);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+}
+
+.patient-info {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.patient-name {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.patient-id {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Information cards */
+.info-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.info-card {
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  border: 1px solid var(--light-gray);
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  border-color: var(--secondary-color);
+}
+
+.card-title {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--secondary-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-content {
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.card-content p {
+  margin: 0.8rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-content strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Problem section */
+.problem-section {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+  border: 1px solid var(--light-gray);
+}
+
+.problem-title {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.problem-description {
+  color: var(--text-color);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  padding: 1rem;
+  background: var(--light-gray);
+  border-radius: var(--border-radius);
+}
+
+/* Reports section */
+.reports-section {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--light-gray);
+}
+
+.reports-title {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.report-item {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  aspect-ratio: 1;
+}
+
+.report-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.report-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.report-item:hover .report-image {
+  transform: scale(1.1);
+}
+
+.report-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: var(--white);
+  padding: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.report-item:hover .report-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+/* Error message */
+.error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  text-align: center;
+  padding: 2rem;
+  background: var(--light-gray);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--accent-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .patient-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .info-section {
+    grid-template-columns: 1fr;
+  }
+
+  .patient-name {
+    font-size: 1.8rem;
+  }
+}
+
+/* Animation for loading */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.loading {
+  animation: pulse 1.5s infinite;
+}
+
+/* Add Prescription Button Section */
+.add-prescription-section {
+    text-align: center; /* Center the button */
+    margin: 2rem 0; /* Add more space */
+    padding: 1rem 0;
+    /* Optional: Add a subtle background or border */
+    /* background-color: #f8f9fa; */
+    /* border-top: 1px solid var(--light-gray); */
+    /* border-bottom: 1px solid var(--light-gray); */
+}
+
+.add-prescription-btn {
+    /* Use theme colors */
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); 
+    color: var(--white);
+    border: none;
+    padding: 0.9rem 2rem; /* Slightly larger padding */
+    font-size: 1.15rem; /* Slightly larger font */
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition), transform 0.1s ease; /* Use theme transition */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem; /* Increased gap */
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3); /* Use theme shadow approach */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.add-prescription-btn:hover {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); 
+    box-shadow: 0 6px 15px rgba(44, 62, 80, 0.4); /* Darker shadow on hover */
+    transform: translateY(-2px);
+}
+
+.add-prescription-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
