@@ -58,7 +58,7 @@ DocuBook is a comprehensive medical appointment management system that connects 
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/docubook.git
+git clone https://github.com/mouryavardhan/docubook.git
 cd docubook
 ```
 
