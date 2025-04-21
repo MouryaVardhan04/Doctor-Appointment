@@ -494,43 +494,63 @@ router.get("/getpatientreport/:id", async (req, res) => {
   const appointmentId = req.params.id;
 
   try {
-    const report = await PatientProblem.findOne({ appointmentId });
+    // First find the appointment to get the patient_userId
     const appointment = await Appointment.findOne({ _id: appointmentId });
-    const doctor = await Doctor.findOne({ _id: appointment.doctor_id });
-    if (!report) {
-      return res.status(404).json({ message: 'Patient report not found' });
-    }
-
-    if (!doctor) {
-      return res.status(404).json({ message: 'Doctor not found' });
-    }
-
     if (!appointment) {
+      console.error('Appointment not found:', appointmentId);
       return res.status(404).json({ message: 'Appointment not found' });
     }
 
+    // Find the patient using patient_userId from appointment
     const patient = await Patient.findOne({ patient_userId: appointment.patient_userId });
-
     if (!patient) {
+      console.error('Patient not found for appointment:', appointmentId);
       return res.status(404).json({ message: "Patient not found" });
     }
 
+    // Find the doctor
+    const doctor = await Doctor.findOne({ _id: appointment.doctor_id });
+    if (!doctor) {
+      console.error('Doctor not found for appointment:', appointmentId);
+      return res.status(404).json({ message: 'Doctor not found' });
+    }
+
+    // Find the patient problem report
+    const report = await PatientProblem.findOne({ appointmentId });
+    if (!report) {
+      console.error('Patient report not found for appointment:', appointmentId);
+      return res.status(404).json({ message: 'Patient report not found' });
+    }
+
+    // Format the response with proper image URLs
     const patientWithImageURL = {
       ...patient.toObject(),
       file: patient.file ? `http://localhost:8000/uploads/${patient.file}` : null,
     };
 
+    // Format the report with proper image URLs for reports
+    const formattedReport = {
+      ...report.toObject(),
+      reports: report.reports.map(report => ({
+        ...report,
+        path: `http://localhost:8000/uploads/patient_reports/${report.filename}`
+      }))
+    };
+
     res.status(200).json({
       message: 'Patient report retrieved successfully',
       appointment,
-      report,
+      report: formattedReport,
       doctor,
       patient: patientWithImageURL
     });
 
   } catch (error) {
     console.error('Error retrieving patient report:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ 
+      message: 'Internal Server Error',
+      error: error.message 
+    });
   }
 });
 

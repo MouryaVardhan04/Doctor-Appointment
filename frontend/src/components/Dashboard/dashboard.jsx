@@ -193,9 +193,6 @@ if (group) {
           <button className="action-btn primary" onClick={() => navigate('/admin/appointments')}>
             <i className="fas fa-calendar"></i> Appointments
           </button>
-          <button className="action-btn secondary" onClick={() => navigate('/profile')}>
-            <i className="fas fa-user"></i> Profile
-          </button>
         </div>
       </div>
 
