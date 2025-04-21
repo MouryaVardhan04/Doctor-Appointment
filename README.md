@@ -1,6 +1,6 @@
-# DocuBook - Medical Appointment System
+# DocuBook - Doctor Appointment System
 
-DocuBook is a comprehensive medical appointment management system that connects patients with healthcare providers, streamlining the appointment booking process and enhancing healthcare accessibility.
+DocuBook is a comprehensive doctor appointment management system that connects patients with healthcare providers, streamlining the appointment booking process and enhancing healthcare accessibility.
 
 ## Features
 
