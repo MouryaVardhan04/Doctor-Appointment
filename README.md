@@ -163,10 +163,6 @@ docubook/
 - CORS protection
 - Rate limiting
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - Material-UI for the component library
@@ -177,9 +173,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contact
 
 For any queries or support, please contact:
-- Email: support@docubook.com
-- Website: www.docubook.com
-- Phone: +1 (555) 123-4567
+- Email: mouryabhukya04@gmail.com
+- Phone: +91 9381340810
 
 ## Future Enhancements
 
