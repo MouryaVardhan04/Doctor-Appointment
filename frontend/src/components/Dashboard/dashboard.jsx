@@ -123,10 +123,10 @@ if (group) {
   if (loading) {
     return (
       <div className="dashboard-container">
-        <div className="loading-spinner">
-          <div className="spinner"></div>
-          <p>Loading dashboard data...</p>
-        </div>
+<div class="loading-overlay hidden" id="loadingOverlay">
+  <div class="spinner"></div>
+</div>
+
       </div>
     );
   }
